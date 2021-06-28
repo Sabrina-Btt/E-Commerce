@@ -56,6 +56,7 @@ header{
     color: #233056;
 
     nav{
+        gap: 16px;
         display:flex;
         justify-content: space-between;
         align-items: center;
@@ -63,22 +64,55 @@ header{
 
         .search{
             flex-grow: 1;
+            
+            //This puts the button besides the search bar
+            *{
+                box-sizing: border-box;
+            }
+
             form{
                 input{
-                    height: 23px;
-                    border-radius: 3px;
-                    border: solid 1px #e8e8e8;
-                    box-shadow: 0px 2px 2px 1px rgba(95, 94, 94, 0.5);
+                    box-shadow: 2px 4px 4px rgba(0,0,0,0.4);
+                    border-radius: 0;
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    border: 1px solid rgba(#233056, 0.5);
+                    padding: 12px;
+                    height: 35px;
+                    width: 80%;
+                    font-size: 14px;
+                    float: left;
+                    background: white;
+
                     &:focus{
                         outline: none;
-                    }
-                    /* webkit solution */
-                    &::-webkit-input-placeholder { 
-                        font-family: FontAwesome;
-                        color: #233056;
-                        text-align:right;
-                        margin-right: 5px;;
-                    }              
+                    }          
+                }
+                
+                ::placeholder{
+                    color: #233056;
+                }
+
+                button {
+                    box-shadow: 1px 4px 4px rgba(0,0,0,0.4);
+                    border-radius: 0;
+                    border-bottom-right-radius: 10px;
+                    border-top-right-radius: 10px;
+                    border: 1px solid rgba(#233056, 0.5);
+                    height: 35px;
+                    width: 20%;
+                    font-size: 17px;
+                    float: left;
+                    background: #fff;
+                    color: #233056;
+                    align-items: center;
+                    border-left: none;
+                    cursor: pointer;
+                }
+                
+                button:hover {
+                   transition: filter 0.3s;
+                   filter: brightness(0.7);
                 }
             }
         }
