@@ -3,6 +3,46 @@
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  color: #233056;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  margin-left: 5px;
+}
+.logo img {
+  height: 70px;
+}
+.logo span {
+  font-family: "Lily Script One";
+  font-size: 22px;
+  font-weight: bolder;
+  color: #233056;
+  margin-left: 7px;
+}
+
+.menu {
+  flex-grow: 10;
+}
+.menu ul {
+  display: flex;
+}
+.menu ul li {
+  list-style: none;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 0 25px;
+  cursor: pointer;
+}
+.menu ul li:hover {
+  background-color: #caafb18e;
+}
+
 header {
   font-weight: 500;
   background-color: #ffd8db;
@@ -17,45 +57,24 @@ header nav {
   align-items: center;
   height: 100%;
 }
-header nav a {
-  text-decoration: none;
-  color: #233056;
-}
-header nav .logo {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  height: 100%;
-  margin-left: 5px;
-}
-header nav .logo img {
-  height: 70px;
-}
-header nav .logo span {
-  font-family: "Lily Script One";
-  font-size: 22px;
-  font-weight: bolder;
-  color: #233056;
-  margin-left: 7px;
-}
-header nav .menu {
-  flex-grow: 10;
-}
-header nav .menu ul {
-  display: flex;
-}
-header nav .menu ul li {
-  list-style: none;
-  padding: 10px;
-  border-radius: 15px;
-  margin: 0 25px;
-  cursor: pointer;
-}
-header nav .menu ul li:hover {
-  background-color: #caafb18e;
-}
 header nav .search {
   flex-grow: 1;
+}
+header nav .search form input {
+  height: 23px;
+  border-radius: 3px;
+  border: solid 1px #e8e8e8;
+  box-shadow: 0px 2px 2px 1px rgba(95, 94, 94, 0.5);
+  /* webkit solution */
+}
+header nav .search form input:focus {
+  outline: none;
+}
+header nav .search form input::-webkit-input-placeholder {
+  font-family: FontAwesome;
+  color: #233056;
+  text-align: right;
+  margin-right: 5px;
 }
 header nav .cart {
   flex-grow: 1;
@@ -72,6 +91,31 @@ main {
 footer {
   background-color: #ffd8db;
   grid-area: global_footer;
+}
+footer nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer nav .first-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+footer nav .first-nav .logo img {
+  height: 50px;
+}
+footer nav .first-nav .logo span {
+  font-size: 15px;
+}
+footer nav .menu {
+  flex-grow: 1;
+  align-items: center;
+  margin-left: 30px;
+}
+footer nav .partners {
+  flex-grow: 1;
 }
 
 body {
