@@ -1,0 +1,68 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+main .section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px;
+  width: 50%;
+}
+main .section img {
+  width: 50%;
+}
+main .section .text {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+main hr {
+  width: 90%;
+  color: #df7197;
+}
+main h3 {
+  margin: 20px;
+}
+main .feedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+main .feedback .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1.5px solid gray;
+  border-radius: 5px;
+  width: 20%;
+}
+main .feedback .card img {
+  width: 90%;
+  border-radius: 4px;
+}
+main .feedback .card h3 {
+  margin: 10px;
+}
+main .feedback .card a {
+  margin-top: 20px;
+  color: #df7197;
+}
+main .feedback .card p {
+  font-size: 12px;
+  padding-left: 22px;
+  align-self: stretch;
+}
+main .feedback .card .name {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=about.css.map */
