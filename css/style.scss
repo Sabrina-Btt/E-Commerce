@@ -126,10 +126,12 @@ header{
         .cart{
             margin-left: 30px;
             flex-grow: 1;
+            margin-right: 7px;
         }
 
         .login{
             flex-grow: 1;
+            margin-right: 7px;
         }
     }    
 
@@ -217,4 +219,54 @@ body{
         'global_content'
         'global_footer'
     ;
+}
+
+@media(max-width:868px){
+    header{
+        nav{
+            .login{
+                display:none;
+            }
+
+            .cart{
+                display:none;
+            }
+        }
+    }
+}
+
+@media(max-width:755px){
+    header{
+        nav{
+            .search{
+                display:none;
+            }
+        }
+    }
+
+    footer{
+        nav{
+            .partners{
+                display:none;
+            }
+        }
+    }
+}
+
+@media(max-width:692px){
+    header{
+        nav{
+            .menu{
+                display:none;
+            }
+        }
+    }
+
+    footer{
+        nav{
+            .menu{
+                display: none;
+            }
+        }
+    }
 }

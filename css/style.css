@@ -107,9 +107,11 @@ header nav .menu ul li:hover {
 header nav .cart {
   margin-left: 30px;
   flex-grow: 1;
+  margin-right: 7px;
 }
 header nav .login {
   flex-grow: 1;
+  margin-right: 7px;
 }
 
 main {
@@ -177,6 +179,33 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr 100px;
   grid-template-areas: "global_header" "global_content" "global_footer";
+}
+
+@media (max-width: 868px) {
+  header nav .login {
+    display: none;
+  }
+  header nav .cart {
+    display: none;
+  }
+}
+@media (max-width: 755px) {
+  header nav .search {
+    display: none;
+  }
+
+  footer nav .partners {
+    display: none;
+  }
+}
+@media (max-width: 692px) {
+  header nav .menu {
+    display: none;
+  }
+
+  footer nav .menu {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
