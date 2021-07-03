@@ -1,0 +1,42 @@
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ebebeb;
+  border-radius: 5px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+  width: 30%;
+}
+main .card h3 {
+  margin-top: 20px;
+}
+main .card p {
+  margin: 20px;
+  text-align: center;
+  width: 60%;
+  font-size: small;
+}
+main .card .button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 10px 0 15px 0;
+}
+main .card .button .text-button {
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #df7197;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=cart.css.map */
