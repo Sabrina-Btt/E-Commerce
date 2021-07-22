@@ -1,0 +1,118 @@
+main{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+
+    h2{
+        margin: 30px;
+    }
+
+    .card{
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+
+        hr{
+            margin-bottom: 20px;
+            margin-top: 20px;
+            width: 90%;
+            color: #df7197;
+        }
+
+        select{
+            margin: 10px 0px 10px 0px;
+            background-color: rgb(223, 223, 223);
+            border: 1px solid rgb(184, 184, 184);
+            border-radius: 3px;
+            height: 27px;
+        }
+
+        .products{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 50%;
+            padding: 0px 0px 30px 50px ;
+            border-right: 3px solid #df7197;
+
+            
+            h4{
+                margin-bottom: 20px;       
+            }
+
+            form{
+                display: flex;
+                flex-direction: column;
+                width: 90%;
+    
+                b{
+                    font-size: small;
+                    color:lightslategrey;
+                }
+    
+                input{
+                    margin: 10px 0px 10px 0px;
+                    background-color: rgb(223, 223, 223);
+                    border: 1px solid rgb(184, 184, 184);
+                    border-radius: 3px;
+                    height: 27px;
+    
+                    &:focus{
+                        outline: 1.5px solid #df7197 ;
+                    } 
+                }
+                                   
+                .text-button{
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    padding: 10px 115px;
+                    border:none;
+                    border-radius: 5px;
+                    color:#fff;
+                    font-weight: bold;
+                    background-color: #df7197;
+                    cursor: pointer;
+                }
+                
+            }
+        }
+    
+        .orders{
+            width: 50%;
+            padding: 0px 30px 30px 50px;
+
+            .new-order{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: row;
+                padding: 10px 10px 10px 10px;          
+                border: 1px solid #df7197;
+                border-radius: 5px;
+
+                .text-button{
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    padding: 7px 40px;
+                    border:none;
+                    border-radius: 5px;
+                    color:#fff;
+                    font-weight: bold;
+                    background-color: #df7197;
+                    cursor: pointer;
+                }
+
+                .fa-chevron-down{
+                    color: #df7197;
+                }
+
+            }
+        }
+
+    }
+}

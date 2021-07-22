@@ -10,7 +10,7 @@
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="register.css">
     <!--Icons-->
     <link rel="shortcut icon" href="../images/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -60,7 +60,7 @@
             </div>
 
             <div class='login'>
-                <a href="login.html">
+                <a href="../login/login.html">
                     <i class="fa fa-user fa-2x"></i>
                 </a>
             </div>
@@ -69,21 +69,48 @@
 
     <main>
         <div class="card">
-            <h3>
-                Bem Vindo!
-            </h3>
+            <h2>
+                Cadastre-se
+            </h2>
 
-            <p>
-                Entre com a sua conta para aproveitar cada uma de nossas delícias!
-            </p>
+            <hr>
 
-            <div class="logon">
-                <p>Não tem uma conta?</p>
-                <a href="../register/register.html">Cadastre-se</a>
+            <p>Dados Pessoais</p>
+            
+            <form id="user-info">
+                <b>Nome Completo</b>
+                <input type="text">
 
-            </div>
+                <b>Telefone</b>
+                <input type="text">
+            </form>
 
-            <form id="login">
+            <hr>
+
+            <p>Endereço</p>
+            
+            <form id="user-adress">
+                <b>Rua</b>
+                <input type="text">
+
+                <b>Número</b>
+                <input type="text">
+                
+                <b>Bairro</b>
+                <input type="text">
+     
+                <b>Cidade</b>
+                <input type="text">
+                
+                <b>CEP</b>
+                <input type="text">
+            </form>
+
+            <hr>
+
+            <p>Dados de Login</p>
+
+            <form id="user-login">
                 <b>Email</b>
                 <input type="text">
 
@@ -92,12 +119,10 @@
             </form>
 
             <div class="button">
-                <button id='entrar' class="text-button" type="submit" form="login">
-                    Entrar
+                <button id='cadastrar' class="text-button">
+                    Cadastrar
                 </button>
             </div>
-
-
         </div>
 
     </main>

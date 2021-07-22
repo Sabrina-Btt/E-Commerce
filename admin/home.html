@@ -10,7 +10,7 @@
 
     <!--Custom CSS-->
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="home.css">
     <!--Icons-->
     <link rel="shortcut icon" href="../images/favicon-32x32.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,8 +25,8 @@
     <header>
         <nav>
             <div class='logo'>
-                <a href="../index.html"><img src="../images/logo.png" alt="Logo Doce Amor"></a>
-                <a href="../index.html">
+                <a href="index.html"><img src="../images/logo.png" alt="Logo Doce Amor"></a>
+                <a href="index.html">
                     <span>Doce Amor</span>
                 </a>
             </div>
@@ -34,7 +34,7 @@
             <div class='menu'>
                 <ul>
                     <li>
-                        <a href="../about/about.html">Sobre</a>
+                        <a href="about/about.html">Sobre</a>
                     </li>
                     <li>
                         <a href="">Contato</a>
@@ -53,53 +53,107 @@
             </div>
 
             <div class='cart'>
-                <a href="../cart/cart.html">
+                <a href="./cart/cart.html">
                     <i class="fa fa-shopping-cart fa-2x"></i>
                 </a>
 
             </div>
 
             <div class='login'>
-                <a href="login.html">
+                <a href="./login/login.html">
                     <i class="fa fa-user fa-2x"></i>
                 </a>
             </div>
+
         </nav>
     </header>
 
     <main>
+        <h2>Dashboard Doce Amor</h2>
+        
         <div class="card">
-            <h3>
-                Bem Vindo!
-            </h3>
 
-            <p>
-                Entre com a sua conta para aproveitar cada uma de nossas delícias!
-            </p>
+            <div class="products">
+                <h3>Gerenciar Produtos</h3>
 
-            <div class="logon">
-                <p>Não tem uma conta?</p>
-                <a href="../register/register.html">Cadastre-se</a>
+                <hr>
+
+                <h4>Adicionar Produto</h4>
+
+                <form>
+                    <b>Nome do Produto</b>
+                    <input type="text">
+
+                    <b>Descrição</b>
+                    <input type="text">
+
+                    <b>Preço</b>
+                    <input type="text">
+
+                    <b>Categoria</b>
+                    <select name="category">
+                        <option  selected>Selecionar</option>
+                        <option value="brownie">Brownie</option>
+                        <option value="copo-da-felicidade">Copo da Felicidade</option>
+                        <option value="bolo-no-pote">Bolo no Pote</option>
+                        <option value="brigadeiros">Brigadeiros</option>
+                        <option value="pastel_doce">Pastel Doce</option>
+                    </select>
+
+                    <b>Quantidade em Estoque</b>
+                    <input type="text">
+  
+                    <button id='add-picture' class="text-button">
+                        Adicionar Foto
+                    </button>
+
+                    <button id='add-product' class="text-button">
+                        Adicionar Produto
+                    </button>
+                </form>
+
+                <hr>
+
+                <h4>Remover Produto</h4>
+
+                <form>
+                    <b>Nome do Produto</b>
+                    <input type="text">
+
+                    <button id='add-product' class="text-button">
+                        Remover Produto
+                    </button>
+
+                </form>
 
             </div>
+    
+            <div class="orders">
+                <h3>Gerenciar Pedidos</h3>
 
-            <form id="login">
-                <b>Email</b>
-                <input type="text">
+                <hr>
 
-                <b>Senha</b>
-                <input type="password">
-            </form>
+                <div class="new-order">
+                    <p>Nome Cliente</p>
+                    <p>Valor Total: R$0,00</p>
+                    
+                    <select name="status">
+                        <option value="pedido-feito" selected>Pedido Feito</option>
+                        <option value="preparando">Preparando</option>
+                        <option value="pedido-concluido">Pedido Concluido</option>
+                    </select>
 
-            <div class="button">
-                <button id='entrar' class="text-button" type="submit" form="login">
-                    Entrar
-                </button>
+                    <button id='att-order' class="text-button">
+                        Atualizar
+                    </button>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </div>
             </div>
-
 
         </div>
-
+        
     </main>
 
     <footer>
@@ -136,7 +190,7 @@
             <div class='menu'>
                 <ul>
                     <li>
-                        <a href="../about/about.html">Sobre</a>
+                        <a href="about/about.html">Sobre</a>
                     </li>
 
                     <li>
@@ -168,7 +222,6 @@
             </div>
         </nav>
     </footer>
-    <script src="./login.js"></script>
 </body>
 
 </html>
