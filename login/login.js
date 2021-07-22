@@ -1,7 +1,7 @@
 document.getElementById("entrar").onclick = function (e) {
     e.preventDefault();
     let form = document.getElementById('login');
-    console.log(getUserBd(form.elements[0].value, form.elements[1].value))
+    getUserBd(form.elements[0].value, form.elements[1].value)
 }
 
 function getUserBd(email, senha) {
@@ -32,9 +32,18 @@ function getUserBd(email, senha) {
     )
         .then(res => res.json())
         .then((res) => {
-            console.log(res.data.allUsers.length);
+            if (res.data.allUsers.length !== 0) {
+                liberaAcesso();
+            } else {
+                alert("Acese Negado!!!!!!!");
+            }
         })
         .catch((error) => {
             console.log(error);
         });
+
+}
+
+function liberaAcesso() {
+    console.log("Acesso Liberado!");
 }
