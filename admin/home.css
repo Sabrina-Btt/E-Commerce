@@ -13,6 +13,7 @@ main .card {
   align-items: flex-start;
   justify-content: center;
   flex-direction: row;
+  margin-bottom: 30px;
   width: 100%;
 }
 main .card hr {
