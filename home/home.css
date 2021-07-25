@@ -29,16 +29,17 @@ main div .list-products .product {
   align-items: stretch;
   border: solid 1px gray;
   width: 25%;
-  height: 40vh;
+  height: 40%;
   margin-bottom: 20px;
   border-radius: 10px;
 }
 main div .list-products .product img {
   align-self: center;
   width: 30%;
+  border-radius: 10px;
 }
 main div .list-products .product span, main div .list-products .product h2 {
-  margin-left: 15px;
+  margin-left: 30px;
   color: gray;
 }
 main div .list-products .product .buttons {

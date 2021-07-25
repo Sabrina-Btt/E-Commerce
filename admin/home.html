@@ -70,7 +70,7 @@
 
     <main>
         <h2>Dashboard Doce Amor</h2>
-        
+
         <div class="card">
 
             <div class="products">
@@ -80,7 +80,7 @@
 
                 <h4>Adicionar Produto</h4>
 
-                <form>
+                <form id="addProduct">
                     <b>Nome do Produto</b>
                     <input type="text">
 
@@ -92,17 +92,17 @@
 
                     <b>Categoria</b>
                     <select name="category">
-                        <option  selected>Selecionar</option>
+                        <option selected>Selecionar</option>
                         <option value="brownie">Brownie</option>
                         <option value="copo-da-felicidade">Copo da Felicidade</option>
                         <option value="bolo-no-pote">Bolo no Pote</option>
                         <option value="brigadeiros">Brigadeiros</option>
-                        <option value="pastel_doce">Pastel Doce</option>
+                        <option value="pastel-doce">Pastel Doce</option>
                     </select>
 
                     <b>Quantidade em Estoque</b>
                     <input type="text">
-  
+
                     <button id='add-picture' class="text-button">
                         Adicionar Foto
                     </button>
@@ -127,7 +127,7 @@
                 </form>
 
             </div>
-    
+
             <div class="orders">
                 <h3>Gerenciar Pedidos</h3>
 
@@ -136,7 +136,7 @@
                 <div class="new-order">
                     <p>Nome Cliente</p>
                     <p>Valor Total: R$0,00</p>
-                    
+
                     <select name="status">
                         <option value="pedido-feito" selected>Pedido Feito</option>
                         <option value="preparando">Preparando</option>
@@ -153,7 +153,7 @@
             </div>
 
         </div>
-        
+
     </main>
 
     <footer>
@@ -222,6 +222,9 @@
             </div>
         </nav>
     </footer>
+
+    <script src="https://unpkg.com/datocms-client@latest/dist/client.js"></script>
+    <script src="./admin.js"></script>
 </body>
 
 </html>
