@@ -1,15 +1,10 @@
 main{
+    
     div{
         display:flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around;
-        
-        .carousel{
-            img{
-                width:30%;
-            }
-        }
 
         hr{
             width:80%;

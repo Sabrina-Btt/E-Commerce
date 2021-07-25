@@ -4,9 +4,6 @@ main div {
   align-items: center;
   justify-content: space-around;
 }
-main div .carousel img {
-  width: 30%;
-}
 main div hr {
   width: 80%;
   margin: 20px 0;
