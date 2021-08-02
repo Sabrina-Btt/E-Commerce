@@ -17,6 +17,7 @@ document.getElementById("add-product").onclick = function (e) {
                 description: form[1].value
 
             });
+
             alert("Produto criado com sucesso!");
         } catch (error) {
             alert("Erro na criação do produto!");
