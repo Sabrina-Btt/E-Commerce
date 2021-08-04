@@ -69,12 +69,12 @@ function renderProducts(products) {
 
                 <div class="buttons">
                     <div class="quantity-button">
-                        <button class="plus">
-                            +
-                        </button>
-                        <span id="qtd-display" qtd=0>0</span>
                         <button class="minus">
                             -
+                        </button>
+                        <span id="qtd-display" qtd=0>0</span>
+                        <button class="plus">
+                            +
                         </button>
                     </div>
                     <button class="add" productId=${elem.id}>
@@ -117,7 +117,7 @@ function incrementQuantityDisplay() {
     teste.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();    
-            let htmlDisplay = elem.nextElementSibling;
+            let htmlDisplay = elem.previousElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd"))+1;
             htmlDisplay.innerHTML = res;
             htmlDisplay.setAttribute("qtd",res);          
@@ -130,7 +130,7 @@ function decrementQuantityDisplay() {
     teste.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();    
-            let htmlDisplay = elem.previousElementSibling;
+            let htmlDisplay = elem.nextElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd"))-1;
             if(res < 0){
                 res = 0;   

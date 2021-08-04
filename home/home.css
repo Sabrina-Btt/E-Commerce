@@ -45,6 +45,37 @@ main div .list-products .product .buttons {
   justify-content: space-around;
   margin: 10px 0 15px 0;
 }
+main div .list-products .product .buttons .quantity-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+main div .list-products .product .buttons .quantity-button .plus {
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 35px;
+  background-color: #df7197;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+main div .list-products .product .buttons .quantity-button .minus {
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 35px;
+  background-color: #df7197;
+  color: #fff;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}
+main div .list-products .product .buttons .quantity-button span {
+  margin-left: 0px;
+}
 main div .list-products .product .buttons .add {
   padding: 15px;
   border: none;
