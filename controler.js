@@ -48,11 +48,16 @@ function renderPage(products) {
     renderProducts(products);
 
     addToCart();
+
+    incrementQuantityDisplay();
+    
+    decrementQuantityDisplay();
 }
 
 function renderProducts(products) {
     products.map(elem => {
         let listProduct = document.getElementById("top-3");
+        
         let htmlInsert = `
             <div class="product">
                 <img src="./images/logo.png" alt="">
@@ -63,9 +68,15 @@ function renderProducts(products) {
                 <span>Preço : ${elem.price} </span>
 
                 <div class="buttons">
-                    <button>
-                        0
-                    </button>
+                    <div class="quantity-button">
+                        <button class="plus">
+                            +
+                        </button>
+                        <span id="qtd-display" qtd=0>0</span>
+                        <button class="minus">
+                            -
+                        </button>
+                    </div>
                     <button class="add" productId=${elem.id}>
                         Adicionar
                     </button>
@@ -99,4 +110,33 @@ function addToCart() {
         }
     });
 
+}
+
+function incrementQuantityDisplay() {
+    let teste = Array.from(document.querySelectorAll(".plus"));
+    teste.map(elem => {
+        elem.onclick = function (e) {
+            e.preventDefault();    
+            let htmlDisplay = elem.nextElementSibling;
+            let res = Number(htmlDisplay.getAttribute("qtd"))+1;
+            htmlDisplay.innerHTML = res;
+            htmlDisplay.setAttribute("qtd",res);          
+        }
+    })
+}
+
+function decrementQuantityDisplay() {
+    let teste = Array.from(document.querySelectorAll(".minus"));
+    teste.map(elem => {
+        elem.onclick = function (e) {
+            e.preventDefault();    
+            let htmlDisplay = elem.previousElementSibling;
+            let res = Number(htmlDisplay.getAttribute("qtd"))-1;
+            if(res < 0){
+                res = 0;   
+            }
+            htmlDisplay.innerHTML = res;
+            htmlDisplay.setAttribute("qtd",res);          
+        }
+    })
 }
