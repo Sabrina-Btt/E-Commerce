@@ -72,7 +72,7 @@ function renderProducts(products) {
                         <button class="minus">
                             -
                         </button>
-                        <span id="qtd-display" qtd=0>0</span>
+                        <span id="qtd-display" qtd=1>1</span>
                         <button class="plus">
                             +
                         </button>
@@ -97,11 +97,12 @@ function addToCart() {
             let ProductFound = carrinho.find(prod => prod.id === currentId);
 
             if (ProductFound !== undefined) {
-                ProductFound.qtd = ProductFound.qtd + 1;
+                //ProductFound.qtd = ProductFound.qtd + 1;
+                ProductFound.qtd = elem.previousElementSibling.lastElementChild.previousElementSibling.getAttribute("qtd");
             } else {
                 let obj = {
                     id: currentId,
-                    qtd: 1
+                    qtd: elem.previousElementSibling.lastElementChild.previousElementSibling.getAttribute("qtd")
                 }
                 carrinho.push(obj);
             }
@@ -132,8 +133,8 @@ function decrementQuantityDisplay() {
             e.preventDefault();    
             let htmlDisplay = elem.nextElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd"))-1;
-            if(res < 0){
-                res = 0;   
+            if(res < 1){
+                res = 1;   
             }
             htmlDisplay.innerHTML = res;
             htmlDisplay.setAttribute("qtd",res);          
