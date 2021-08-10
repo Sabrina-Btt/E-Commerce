@@ -1,0 +1,96 @@
+main{ 
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+
+    h2{
+        margin:10px;
+    }
+    
+    hr{
+        width: 95%;
+        border-color:#df7197 ;
+    }
+
+    .container{
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: row;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        
+        .left-card{
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            width: 90%;
+            border-radius: 5px;
+            margin-left: 20px;
+
+            .products{
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 96%;
+                background-color: white;
+                border: 1px solid #df7197;
+                border-radius: 3px;
+                padding: 10px;
+
+                img{
+                    width: 20%;
+                }
+                
+                i{
+                    color:#df7197 ;
+                }
+            }
+
+        }
+
+        .right-card{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: white;
+            border: 1px solid #df7197;
+            border-radius: 5px;
+            width: 50%;
+            margin-right: 20px;
+            margin-left: 25px;
+            padding:10px;
+
+            p{
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            h3{
+                margin-bottom: 20px;
+            }
+
+            .text-button{
+                
+                width: 40%;
+                padding: 15px 20px;
+                border:none;
+                border-radius: 5px;
+                color:#fff;
+                font-weight: bold;
+                background-color: #df7197;
+                cursor: pointer;
+            }
+
+            
+
+
+        }
+    }
+}
