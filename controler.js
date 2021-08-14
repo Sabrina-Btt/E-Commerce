@@ -1,5 +1,24 @@
+fetch("/header.html")
+  .then(response => {
+    return response.text()
+  })
+  .then(data => {
+    document.querySelector("header").innerHTML = data;
+  });
+
+
+fetch("/footer.html")
+    .then(response => {
+    return response.text()
+    })
+    .then(data => {
+    document.querySelector("footer").innerHTML = data;
+});
+
+
+//---------------------------------------------- Cart ---------------------------------------------------------------------------------//
 let carrinho = [];
-console.log(getInfomationCookie(document.cookie))
+
 
 getAllProductsDataBase();
 
@@ -16,7 +35,6 @@ function renderPage(products) {
 
     decrementQuantityDisplay();
 }
-
 
 //Funções Auxiliares
 function getAllProductsDataBase() {
@@ -71,7 +89,7 @@ function renderProducts(products) {
 
                 <span>${elem.description} </span>
 
-                <span>Preço : ${elem.price} </span>
+                <span>Preço : R$${elem.price},00 </span>
 
                 <div class="buttons">
                     <div class="quantity-button">
@@ -94,11 +112,11 @@ function renderProducts(products) {
 }
 
 function setQuantityCart() {
-    document.getElementById('quantityCart').innerText = getInfomationCookie(document.cookie)[0].length !== 0 ? getInfomationCookie(document.cookie)[0].length : '';
+    document.getElementById('quantityCart').innerText = getQuantityCart() !== 0 ? getQuantityCart() : '';
 }
 
 function getQuantityCart() {
-    return getInfomationCookie(document.cookie)[0].length;
+    return getInfomationCookie()[0].length;
 }
 
 function addToCart() {
@@ -121,14 +139,11 @@ function addToCart() {
                 // }
                 //carrinho.push(obj);
                 let now = new Date();
-                let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 5);
+                let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
                 document.cookie = `${currentId}=${qtd};expires=${expireCookie}`;
 
             }
-            setQuantityCart();
-            console.log(getInfomationCookie(document.cookie)[0].length);
-            //console.log(carrinho)
-            // console.log(document.cookie);
+            setQuantityCart();          
         }
     });
 
@@ -164,13 +179,45 @@ function decrementQuantityDisplay() {
     })
 }
 
-function getInfomationCookie(stringCookie) {
-    let products = stringCookie.split(';');
-    let ids = products.map(elem => elem.split('=')[0]);
+function getInfomationCookie() {
+    let products = document.cookie.split(';');
+    let ids = products.map(elem => {
+        let key = elem.split('=')[0].trim();
+        if(key!=="userId")
+            return key;
+    });
     let qtd = products.map(elem => elem.split('=')[1]);
     if (ids[0] === "")
         ids = [];
     let informations = [ids, qtd];
     return informations;
 }
-//---------------------------------------------- Cart ---------------------------------------------------------------------------------//
+
+function getCookieIdQtd(){
+    let products = document.cookie.split(';');
+    let ids = products.map(elem => {
+        let key = elem.split('=')[0].trim();
+        if(key!=="userId")
+            return key;
+    });
+    let qtd = products.map(elem => elem.split('=')[1]);
+    let vec = [];
+    if (ids[0] === "")
+        ids = [];
+    for(let i=0; i<ids.length; i++){
+        vec.push([ids[i],qtd[i]]);
+    }
+    return vec;
+}
+
+
+
+
+//---------------------------------------------- Login ---------------------------------------------------------------------------------//
+
+function getUserIdFromCookie(){
+    let cookie = document.cookie;
+    cookie.map(elem=>{
+    
+    })
+}
