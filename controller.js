@@ -1,27 +1,8 @@
-fetch("/header.html")
-  .then(response => {
-    return response.text()
-  })
-  .then(data => {
-    document.querySelector("header").innerHTML = data;
-  });
-
-
-fetch("/footer.html")
-    .then(response => {
-    return response.text()
-    })
-    .then(data => {
-    document.querySelector("footer").innerHTML = data;
-});
-
-
 //---------------------------------------------- Cart ---------------------------------------------------------------------------------//
+console.log(document.cookie);
 let carrinho = [];
 
-
 getAllProductsDataBase();
-
 
 function renderPage(products) {
 
@@ -34,6 +15,8 @@ function renderPage(products) {
     incrementQuantityDisplay();
 
     decrementQuantityDisplay();
+
+    getUserIdFromCookie();
 }
 
 //Funções Auxiliares
@@ -63,19 +46,18 @@ function getAllProductsDataBase() {
             }),
         }
     )
-        .then(res => res.json())
-        .then((res) => {
-            if (res.data.allProducts.length !== 0) {
-                renderPage(res.data.allProducts);
-            } else {
-                alert("Error!");
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    .then(res => res.json())
+    .then((res) => {
+        if (res.data.allProducts.length !== 0) {
+            renderPage(res.data.allProducts);
+        } else {
+            alert("Query Error! Could not get products from database!");
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
-
 
 function renderProducts(products) {
     products.map(elem => {
@@ -87,9 +69,9 @@ function renderProducts(products) {
                 <img src="./images/logo.png" alt="">
                 <h2>${elem.name}</h2>
 
-                <span>${elem.description} </span>
+                <span>${elem.description}</span>
 
-                <span>Preço : R$${elem.price},00 </span>
+                <span>Preço: R$${Number(elem.price).toFixed(2)} </span>
 
                 <div class="buttons">
                     <div class="quantity-button">
@@ -116,7 +98,7 @@ function setQuantityCart() {
 }
 
 function getQuantityCart() {
-    return getInfomationCookie()[0].length;
+    return getInformationCookie()[0].length;
 }
 
 function addToCart() {
@@ -130,7 +112,6 @@ function addToCart() {
             let qtd = elem.parentElement.querySelector(".qtd-display").getAttribute("qtd");
 
             if (ProductFound !== undefined) {
-
                 ProductFound.qtd = elem.parentElement.querySelector(".qtd-display").getAttribute("qtd");
             } else {
                 // let obj = {
@@ -141,9 +122,8 @@ function addToCart() {
                 let now = new Date();
                 let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
                 document.cookie = `${currentId}=${qtd};expires=${expireCookie}`;
-
             }
-            setQuantityCart();          
+            setQuantityCart();
         }
     });
 
@@ -179,7 +159,7 @@ function decrementQuantityDisplay() {
     })
 }
 
-function getInfomationCookie() {
+function getInformationCookie() {
     let products = document.cookie.split(';');
     let ids = products.map(elem => {
         let key = elem.split('=')[0].trim();
@@ -210,14 +190,16 @@ function getCookieIdQtd(){
     return vec;
 }
 
-
-
-
 //---------------------------------------------- Login ---------------------------------------------------------------------------------//
 
 function getUserIdFromCookie(){
-    let cookie = document.cookie;
-    cookie.map(elem=>{
-    
-    })
+    let cookieList = document.cookie.split(';');
+    let userID = null;
+    cookieList.forEach(elem => {
+        let object = elem.split('='); 
+        let key = object[0].trim();
+        if(key=="userId")
+            userID = object[1].trim();
+    });
+    return userID;
 }

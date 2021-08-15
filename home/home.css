@@ -26,7 +26,8 @@ main div .list-products .product {
   align-items: stretch;
   border: solid 1px gray;
   width: 25%;
-  height: 40%;
+  height: 270px;
+  max-height: 300px;
   margin-bottom: 20px;
   border-radius: 10px;
 }
@@ -36,6 +37,7 @@ main div .list-products .product img {
   border-radius: 10px;
 }
 main div .list-products .product span, main div .list-products .product h2 {
+  margin-top: 10px;
   margin-left: 30px;
   color: gray;
 }
@@ -43,7 +45,7 @@ main div .list-products .product .buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 10px 0 15px 0;
+  margin: 10px 0 5px 0;
 }
 main div .list-products .product .buttons .quantity-button {
   display: flex;

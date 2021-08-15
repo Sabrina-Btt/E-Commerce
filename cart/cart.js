@@ -2,7 +2,7 @@ getCartPage();
 renderItems();
 
 function getCartPage(){  
-    if(getInfomationCookie()[0].length==0){
+    if(getInformationCookie()[0].length==0){
         fetch("cart.html")
             .then(response => {
                 return response.text()

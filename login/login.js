@@ -33,7 +33,6 @@ function getUserBd(email, senha) {
         .then(res => res.json())
         .then((res) => {
             if (res.data.allUsers.length !== 0) {
-                console.log(res.data.allUsers[0]);
                 liberaAcesso(res.data.allUsers[0].id);
             } else {
                 alert("Acesso Negado!!!!!!!");
@@ -46,10 +45,10 @@ function getUserBd(email, senha) {
 }
 
 function liberaAcesso(id) {
+    console.log(id);
     let now = new Date();
     let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
     document.cookie = `userId=${id};expires=${expireCookie}`;
-    console.log(document.cookie);
     console.log("Acesso Liberado!");
 }
 
