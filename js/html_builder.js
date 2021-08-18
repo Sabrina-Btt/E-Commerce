@@ -1,4 +1,4 @@
-fetch("/header.html")
+fetch("../components/header.html")
   .then(response => {
     return response.text()
   })
@@ -7,7 +7,7 @@ fetch("/header.html")
   });
 
 
-fetch("/footer.html")
+fetch("../components/footer.html")
   .then(response => {
     return response.text()
   })

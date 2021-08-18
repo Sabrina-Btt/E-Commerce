@@ -1,30 +1,30 @@
 getCartPage();
 renderItems();
 
-function getCartPage(){  
-    if(getInformationCookie()[0].length==0){
-        fetch("cart.html")
+function getCartPage() {
+    if (getInformationCookie()[0].length == 0) {
+        fetch("../routes/cart.html")
             .then(response => {
                 return response.text()
             })
             .then(data => {
                 document.querySelector("main").innerHTML = data;
             })
-            .then(()=>{
-                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="cart.css"></link>');
+            .then(() => {
+                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/cart/cart.css"></link>');
             });
-    }else{
-        fetch("cartItems.html")
+    } else {
+        fetch("../components/cartItems.html")
             .then(response => {
                 return response.text()
             })
             .then(data => {
                 document.querySelector("main").innerHTML = data;
             })
-            .then(()=>{
-                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="cartItems.css"></link>');
+            .then(() => {
+                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/cart/cartItems.css"></link>');
             });
-    }   
+    }
 }
 
 function getCartProductsBd(id, qtd) {
@@ -56,9 +56,9 @@ function getCartProductsBd(id, qtd) {
         .then(res => res.json())
         .then((res) => {
             if (res.data.allProducts.length !== 0) {
-                
+
                 renderProductsCart(res.data.allProducts[0], qtd);
-                
+
             } else {
                 alert("Acesso Negado!!!!!!!");
             }
@@ -70,28 +70,28 @@ function getCartProductsBd(id, qtd) {
 }
 
 function renderProductsCart(product, qtd) {
-    
+
     console.log(product);
     let listItems = document.getElementById("items-to-display");
     if (!listItems)
         return;
     let htmlInsert = `
         <div class="products">
-                <img src="../about/images/doces.png">
+                <img src="../../images/doces.png">
                 <h4>${product.name}</h4>
                 <h4>Quantidade: ${qtd}</h4>
                 <h4>R$${product.price},00</h4>
                 <i class="fa fa-times-circle fa-2x"></i>
         </div>
     `
-    listItems.insertAdjacentHTML('beforeend', htmlInsert)  
+    listItems.insertAdjacentHTML('beforeend', htmlInsert)
 }
 
-function renderItems(){
-    let cartProducts= getCookieIdQtd();
-   
-    cartProducts.map(infoProd=>{
-        getCartProductsBd(infoProd[0],infoProd[1]);
+function renderItems() {
+    let cartProducts = getCookieIdQtd();
+
+    cartProducts.map(infoProd => {
+        getCartProductsBd(infoProd[0], infoProd[1]);
     })
 
 }

@@ -46,17 +46,17 @@ function getAllProductsDataBase() {
             }),
         }
     )
-    .then(res => res.json())
-    .then((res) => {
-        if (res.data.allProducts.length !== 0) {
-            renderPage(res.data.allProducts);
-        } else {
-            alert("Query Error! Could not get products from database!");
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        .then(res => res.json())
+        .then((res) => {
+            if (res.data.allProducts.length !== 0) {
+                renderPage(res.data.allProducts);
+            } else {
+                alert("Query Error! Could not get products from database!");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 function renderProducts(products) {
@@ -66,7 +66,7 @@ function renderProducts(products) {
             return;
         let htmlInsert = `
             <div class="product">
-                <img src="./images/logo.png" alt="">
+                <img src="../images/logo.png" alt="">
                 <h2>${elem.name}</h2>
 
                 <span>${elem.description}</span>
@@ -163,7 +163,7 @@ function getInformationCookie() {
     let products = document.cookie.split(';');
     let ids = products.map(elem => {
         let key = elem.split('=')[0].trim();
-        if(key!=="userId")
+        if (key !== "userId")
             return key;
     });
     let qtd = products.map(elem => elem.split('=')[1]);
@@ -173,32 +173,32 @@ function getInformationCookie() {
     return informations;
 }
 
-function getCookieIdQtd(){
+function getCookieIdQtd() {
     let products = document.cookie.split(';');
     let ids = products.map(elem => {
         let key = elem.split('=')[0].trim();
-        if(key!=="userId")
+        if (key !== "userId")
             return key;
     });
     let qtd = products.map(elem => elem.split('=')[1]);
     let vec = [];
     if (ids[0] === "")
         ids = [];
-    for(let i=0; i<ids.length; i++){
-        vec.push([ids[i],qtd[i]]);
+    for (let i = 0; i < ids.length; i++) {
+        vec.push([ids[i], qtd[i]]);
     }
     return vec;
 }
 
 //---------------------------------------------- Login ---------------------------------------------------------------------------------//
 
-function getUserIdFromCookie(){
+function getUserIdFromCookie() {
     let cookieList = document.cookie.split(';');
     let userID = null;
     cookieList.forEach(elem => {
-        let object = elem.split('='); 
+        let object = elem.split('=');
         let key = object[0].trim();
-        if(key=="userId")
+        if (key == "userId")
             userID = object[1].trim();
     });
     return userID;
