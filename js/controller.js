@@ -119,11 +119,6 @@ function addToCart() {
             if (ProductFound !== undefined) {
                 ProductFound.qtd = elem.parentElement.querySelector(".qtd-display").getAttribute("qtd");
             } else {
-                // let obj = {
-                //     id: currentId,
-                //     qtd: elem.parentElement.querySelector(".qtd-display").getAttribute("qtd"),
-                // }
-                //carrinho.push(obj);
                 let now = new Date();
                 let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
                 document.cookie = `${currentId}=${qtd};expires=${expireCookie}`;
@@ -165,21 +160,7 @@ function decrementQuantityDisplay() {
     })
 }
 
-//Função utilizada para pegar as informações do cookie
-function getInformationCookie() {
-    let products = document.cookie.split(';');
-    let ids = products.map(elem => {
-        let key = elem.split('=')[0].trim();
-        if (key !== "userId")
-            return key;
-    });
-    let qtd = products.map(elem => elem.split('=')[1]);
-    if (ids[0] === "")
-        ids = [];
-    let informations = [ids, qtd];
-    return informations;
-}
-
+//Função para pegar somente os produtos do cookie
 function getCookieAllProducts() {
     let products = document.cookie.split(';');
     let ids = [];
