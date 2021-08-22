@@ -6,7 +6,7 @@ getAllProductsDataBase();
 
 //Função usada para renderizar a pagina
 function renderPage(products) {
-
+    products = products.slice(0, 3);
     renderProducts(products);
 
     addToCart();
@@ -107,8 +107,8 @@ function getQuantityCart() {
 
 //Função que adiciona o produto selecionado ao carrinho
 function addToCart() {
-    let teste = Array.from(document.querySelectorAll(".add"));
-    teste.map(elem => {
+    let add = Array.from(document.querySelectorAll(".add"));
+    add.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();
 
@@ -131,8 +131,8 @@ function addToCart() {
 
 //Função para incrementar a quantidade no display do produto
 function incrementQuantityDisplay() {
-    let teste = Array.from(document.querySelectorAll(".plus"));
-    teste.map(elem => {
+    let displayIncrement = Array.from(document.querySelectorAll(".plus"));
+    displayIncrement.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();
             let htmlDisplay = elem.previousElementSibling;
@@ -145,8 +145,8 @@ function incrementQuantityDisplay() {
 
 //Função para decrementar a quantidade no display do produto
 function decrementQuantityDisplay() {
-    let teste = Array.from(document.querySelectorAll(".minus"));
-    teste.map(elem => {
+    let displayDecrement = Array.from(document.querySelectorAll(".minus"));
+    displayDecrement.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();
             let htmlDisplay = elem.nextElementSibling;
@@ -182,10 +182,11 @@ function getCookieAllProducts() {
     ids = ids.filter(elem => elem !== undefined)
     qtd = qtd.filter(elem => elem !== undefined)
 
-    for (let i = 0; i < ids.length; i++) {
-        vec.push([ids[i], qtd[i]]);
+    if (ids[0] !== '') {
+        for (let i = 0; i < ids.length; i++) {
+            vec.push([ids[i], qtd[i]]);
+        }
     }
-
     return vec;
 }
 
