@@ -4,6 +4,7 @@ let carrinho = [];
 
 getAllProductsDataBase();
 
+//Função usada para renderizar a pagina
 function renderPage(products) {
 
     renderProducts(products);
@@ -19,7 +20,7 @@ function renderPage(products) {
     getUserIdFromCookie();
 }
 
-//Funções Auxiliares
+//Funções Auxiliares // Pega todos os produtos do banco de dados 
 function getAllProductsDataBase() {
     const token = 'd2e7727e16065b64a486255d82e999';
 
@@ -59,6 +60,7 @@ function getAllProductsDataBase() {
         });
 }
 
+//Renderiza os produtos que pegamos do banco de dados
 function renderProducts(products) {
     products.map(elem => {
         let listProduct = document.getElementById("featured");
@@ -93,14 +95,17 @@ function renderProducts(products) {
     })
 }
 
+//Redefine a quantidade de produtos no carrinho
 function setQuantityCart() {
     document.getElementById('quantityCart').innerText = getQuantityCart() !== 0 ? getQuantityCart() : '';
 }
 
+//Pega a quantidade de produtos no carrinho
 function getQuantityCart() {
-    return getInformationCookie()[0].length;
+    return getCookieAllProducts().length;
 }
 
+//Função que adiciona o produto selecionado ao carrinho
 function addToCart() {
     let teste = Array.from(document.querySelectorAll(".add"));
     teste.map(elem => {
@@ -129,7 +134,7 @@ function addToCart() {
 
 }
 
-
+//Função para incrementar a quantidade no display do produto
 function incrementQuantityDisplay() {
     let teste = Array.from(document.querySelectorAll(".plus"));
     teste.map(elem => {
@@ -143,6 +148,7 @@ function incrementQuantityDisplay() {
     })
 }
 
+//Função para decrementar a quantidade no display do produto
 function decrementQuantityDisplay() {
     let teste = Array.from(document.querySelectorAll(".minus"));
     teste.map(elem => {
@@ -159,6 +165,7 @@ function decrementQuantityDisplay() {
     })
 }
 
+//Função utilizada para pegar as informações do cookie
 function getInformationCookie() {
     let products = document.cookie.split(';');
     let ids = products.map(elem => {
@@ -173,25 +180,36 @@ function getInformationCookie() {
     return informations;
 }
 
-function getCookieIdQtd() {
+function getCookieAllProducts() {
     let products = document.cookie.split(';');
-    let ids = products.map(elem => {
+    let ids = [];
+    let qtd = [];
+    let vec = [];
+
+    ids = products.map(elem => {
         let key = elem.split('=')[0].trim();
         if (key !== "userId")
             return key;
     });
-    let qtd = products.map(elem => elem.split('=')[1]);
-    let vec = [];
-    if (ids[0] === "")
-        ids = [];
+
+    qtd = products.map(elem => {
+        let key = elem.split('=')[0].trim();
+        if (key !== "userId") {
+            return elem.split('=')[1];
+        }
+    });
+    ids = ids.filter(elem => elem !== undefined)
+    qtd = qtd.filter(elem => elem !== undefined)
+
     for (let i = 0; i < ids.length; i++) {
         vec.push([ids[i], qtd[i]]);
     }
+
     return vec;
 }
 
 //---------------------------------------------- Login ---------------------------------------------------------------------------------//
-
+//Função utilizada para pegar o id do usuario logado
 function getUserIdFromCookie() {
     let cookieList = document.cookie.split(';');
     let userID = null;
@@ -201,5 +219,6 @@ function getUserIdFromCookie() {
         if (key == "userId")
             userID = object[1].trim();
     });
+    console.log(userID)
     return userID;
 }

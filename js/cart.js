@@ -1,8 +1,9 @@
 getCartPage();
 renderItems();
 
+//Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
 function getCartPage() {
-    if (getInformationCookie()[0].length == 0) {
+    if (getCookieAllProducts().length === 0) {
         fetch("../routes/cart.html")
             .then(response => {
                 return response.text()
@@ -27,6 +28,7 @@ function getCartPage() {
     }
 }
 
+//Função para pegar os produtos do banco de dados
 function getCartProductsBd(id, qtd) {
     const token = 'd2e7727e16065b64a486255d82e999';
     fetch(
@@ -69,6 +71,7 @@ function getCartProductsBd(id, qtd) {
 
 }
 
+//Função para renderizar os produtos que estão no carrinho
 function renderProductsCart(product, qtd) {
 
     console.log(product);
@@ -87,8 +90,9 @@ function renderProductsCart(product, qtd) {
     listItems.insertAdjacentHTML('beforeend', htmlInsert)
 }
 
+//Função que renderiza os produtos na pagina do carrinho.
 function renderItems() {
-    let cartProducts = getCookieIdQtd();
+    let cartProducts = getCookieAllProducts();
 
     cartProducts.map(infoProd => {
         getCartProductsBd(infoProd[0], infoProd[1]);
