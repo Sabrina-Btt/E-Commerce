@@ -9,7 +9,7 @@ setTimeout(() => { getUserInfo(getUserIdFromCookie()); }, 250);
 //Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
 function getCartPage() {
     if (getCookieAllProducts().length === 0) {
-        fetch("../routes/cart.html")
+        fetch("../components/cart.html")
             .then(response => {
                 return response.text()
             })
@@ -94,7 +94,7 @@ function renderProductsCart(product, qtd) {
     if (!listItems)
         return;
     let htmlInsert = `
-        <div class="products" id="${product.id}">
+        <div class="products" id="${product.id}" price="${product.price}" qtd="${qtd}">
                 <img src="../../images/doces.png">
                 <h4>${product.name}</h4>
                 <h4>Quantidade: ${qtd}</h4>
@@ -111,24 +111,28 @@ function renderProductsCart(product, qtd) {
 
 
 function removeProductCart() {
-
     let productToRemove = Array.from(document.querySelectorAll(".removeProduct"));
-    console.log(productToRemove);
     productToRemove.map(elem => {
         elem.onclick = function (e) {
             e.preventDefault();
             let NodeRemove = elem.parentNode;
             if (NodeRemove.parentNode) {
+                recalculateTotalValue(NodeRemove.getAttribute("price"), NodeRemove.getAttribute("qtd"));
                 document.cookie = `${NodeRemove.id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
                 NodeRemove.parentNode.removeChild(NodeRemove);
+                setQuantityCart()
                 if (getCookieAllProducts().length === 0) {
                     getCartPage();
-                } else {
-                    getUserInfo(getUserIdFromCookie());
-                }
+                } 
             }
         }
     })
+}
+
+function recalculateTotalValue(price, qtd){
+    totalValue -= Number(price) * qtd;
+    document.getElementById("totalCartValue").innerHTML = ` Valor Total: R$${totalValue},00 `;
+    
 }
 
 function setTotalValue(products, qtd) {
@@ -152,11 +156,9 @@ function renderUserInfo(userinfo) {
             Telefone: ${userinfo.phone}
         </p>
         <h3>Dados do Pedido</h3>
-        <p>
-            Taxa de entrega: R$5,00
-            <br>
-            Valor Total: R$${totalValue},00 
-        </p>
+        
+        <p>Taxa de entrega: R$5,00</p>
+        <p id="totalCartValue">Valor Total: R$${totalValue},00 </p>
     `
     displayUserInfo.insertAdjacentHTML('afterbegin', htmlInsert)
 }

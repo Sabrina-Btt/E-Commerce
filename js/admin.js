@@ -26,3 +26,5 @@ document.getElementById("add-product").onclick = function (e) {
     createRecord();
 }
 
+
+

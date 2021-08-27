@@ -1,5 +1,4 @@
 //---------------------------------------------- Cart ---------------------------------------------------------------------------------//
-console.log(document.cookie);
 let carrinho = [];
 
 getAllProductsDataBase();
@@ -18,6 +17,10 @@ function renderPage(products) {
     decrementQuantityDisplay();
 
     getUserIdFromCookie();
+
+    getLoginPage();
+
+    logout();
 }
 
 //Funções Auxiliares // Pega todos os produtos do banco de dados 
@@ -201,6 +204,26 @@ function getUserIdFromCookie() {
         if (key == "userId")
             userID = object[1].trim();
     });
-    console.log(userID)
     return userID;
+}
+
+
+function logout(){
+    document.getElementById("logout").onclick = function (e) {
+        let userID = getUserIdFromCookie();
+        document.cookie = `${userID}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        window.location.assign("login.html")
+    }
+    
+}
+
+
+function getLoginPage(){
+    document.getElementById("login-icon").onclick = function (e) {   
+        if(getUserIdFromCookie() !== null)
+            window.location.assign("welcome.html")
+        else
+            window.location.assign("login.html")
+
+    }    
 }

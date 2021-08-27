@@ -45,10 +45,10 @@ function getUserBd(email, senha) {
 }
 
 function liberaAcesso(id) {
-    console.log(id);
     let now = new Date();
     let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
     document.cookie = `userId=${id};expires=${expireCookie}`;
-    console.log("Acesso Liberado!");
+    alert("Acesso Liberado!");
+    window.location.assign("index.html");
 }
 

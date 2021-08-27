@@ -5,8 +5,27 @@ main {
   flex-direction: column;
   width: 100%;
 }
-main h2 {
+main .nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 795px;
+  width: 100%;
+}
+main .nav h2 {
   margin: 30px;
+}
+main .nav .text-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0px 40px;
+  height: 50%;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #df7197;
+  cursor: pointer;
 }
 main .card {
   display: flex;
@@ -14,6 +33,7 @@ main .card {
   justify-content: center;
   flex-direction: row;
   margin-bottom: 30px;
+  margin-top: 20px;
   width: 100%;
 }
 main .card hr {
@@ -99,4 +119,4 @@ main .card .orders .new-order .fa-chevron-down {
   color: #df7197;
 }
 
-/*# sourceMappingURL=home.css.map */
+/*# sourceMappingURL=admin.css.map */
