@@ -44,7 +44,12 @@ main .container .left-card .products {
 main .container .left-card .products img {
   width: 20%;
 }
-main .container .left-card .products i {
+main .container .left-card .products .removeProduct {
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+main .container .left-card .products .removeProduct i {
   color: #df7197;
 }
 main .container .right-card {

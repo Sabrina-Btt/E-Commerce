@@ -1,8 +1,13 @@
-document.getElementById("entrar").onclick = function (e) {
-    e.preventDefault();
-    let form = document.getElementById('login');
-    getUserBd(form.elements[0].value, form.elements[1].value)
+setTimeout(() => {login()}, 1000)
+
+function login(){
+    document.getElementById("entrar").onclick = function (e) {
+        e.preventDefault();
+        let form = document.getElementById('login');
+        getUserBd(form.elements[0].value, form.elements[1].value)
+    }
 }
+
 
 function getUserBd(email, senha) {
     const token = 'd2e7727e16065b64a486255d82e999';

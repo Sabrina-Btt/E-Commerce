@@ -1,4 +1,5 @@
 getUserRole(getUserIdFromCookie());
+setTimeout(() => {logout()}, 2000)
 
 
 function getUserRole(id) {
@@ -66,4 +67,13 @@ function getWelcomePage(role) {
                 document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/cart/cartItems.css"></link>');
             });
     }
+}
+
+
+function logout(){
+    document.getElementById("logout").onclick = function (e) {
+        document.cookie = `userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        window.location.assign("login.html")
+    }
+    
 }

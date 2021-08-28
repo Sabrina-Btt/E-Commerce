@@ -20,7 +20,6 @@ function renderPage(products) {
 
     getLoginPage();
 
-    logout();
 }
 
 //Funções Auxiliares // Pega todos os produtos do banco de dados 
@@ -205,16 +204,6 @@ function getUserIdFromCookie() {
             userID = object[1].trim();
     });
     return userID;
-}
-
-
-function logout(){
-    document.getElementById("logout").onclick = function (e) {
-        let userID = getUserIdFromCookie();
-        document.cookie = `${userID}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
-        window.location.assign("login.html")
-    }
-    
 }
 
 

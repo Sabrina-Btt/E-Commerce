@@ -1,6 +1,5 @@
 getCartPage();
 renderItems();
-// getUserInfo(getUserIdFromCookie());
 
 let totalValue = 5;
 setTimeout(() => { getUserInfo(getUserIdFromCookie()); }, 250);
@@ -139,6 +138,28 @@ function setTotalValue(products, qtd) {
     totalValue += Number(products.price) * qtd;
 }
 
+function renderTotalValue(){
+    let displayTotalValue = document.getElementById("user-info");
+    let htmlInsert = `
+        <h3>Dados do Pedido</h3>
+            
+        <p>Taxa de entrega: R$5,00</p>
+        <p id="totalCartValue">Valor Total: R$${totalValue},00 </p>
+
+        <h3>Para finalizar o pedido efetue o login </h3>
+        <button id="login-cart" class="text-button">
+            Entrar
+        </button>
+    `
+    displayTotalValue.insertAdjacentHTML('afterbegin', htmlInsert)
+}
+
+function redirectToLogin(){
+    document.getElementById("login-cart").onclick = function (e){
+        window.location.assign("login.html");
+    }
+}
+
 function renderUserInfo(userinfo) {
     let displayUserInfo = document.getElementById("user-info");
     console.log(document.getElementById("user-info"))
@@ -156,9 +177,13 @@ function renderUserInfo(userinfo) {
             Telefone: ${userinfo.phone}
         </p>
         <h3>Dados do Pedido</h3>
-        
+            
         <p>Taxa de entrega: R$5,00</p>
         <p id="totalCartValue">Valor Total: R$${totalValue},00 </p>
+        <button class="text-button">
+            Finalizar Pedido
+        </button>
+
     `
     displayUserInfo.insertAdjacentHTML('afterbegin', htmlInsert)
 }
@@ -200,6 +225,11 @@ function getUserInfo(id) {
             }
         })
         .catch((error) => {
+            renderTotalValue();
+            redirectToLogin();
             console.log(error);
         });
 }
+
+
+

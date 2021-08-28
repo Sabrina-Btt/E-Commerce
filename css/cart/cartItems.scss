@@ -46,10 +46,18 @@ main{
                 img{
                     width: 20%;
                 }
-                
-                i{
-                    color:#df7197 ;
+
+                .removeProduct{
+                    border-radius: 20px;
+                    border: none;
+                    cursor: pointer;
+
+                    i{
+                        color:#df7197 ;
+                    }
                 }
+                
+                
             }
 
         }

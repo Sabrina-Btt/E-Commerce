@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Confeitaria Doce Amor</title>
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../../css/global/style.css">
+    <link rel="stylesheet" href="../../css/product/product.css">
+    <!--Icons-->
+    <link rel="shortcut icon" href="../../images/favicon-32x32.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lily Script One' rel='stylesheet'>
+
+</head>
+
+<body>
+
+    <header>
+    </header>
+
+    <main>
+        <div class="filter">
+            <h4>Filtro os tipos de produto:</h4>
+
+            <form id=formFilter>
+
+                <label for="brownie">
+                    Brownie
+                    <input type="checkbox" name="filterProducts" id="brownie">
+                </label>
+
+
+                <label for="copoDaFelicidade">
+                    Copo da felicidade
+                    <input type="checkbox" name="filterProducts" id="copoFelicidade">
+                </label>
+
+
+                <label for="brigadeiros">
+                    Brigadeiros
+                    <input type="checkbox" name="filterProducts" id="brigadeiros">
+                </label>
+
+
+                <label for="pastelDoce">
+                    Pastéis doces
+                    <input type="checkbox" name="filterProducts" id="pastelDoce">
+                </label>
+
+
+                <label for="BoloPote">
+                    Bolo no pote
+                    <input type="checkbox" name="filterProducts" id="boloPote">
+                </label>
+
+                <button>Filtrar</button>
+            </form>
+
+        </div>
+
+        <div class="products" id="featured">
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+
+    <script src="../../js/controller.js"></script>
+    <script src="../../js/html_builder.js"></script>
+    <script src="../../js/product.js"></script>
+</body>
+
+</html>
