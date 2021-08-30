@@ -64,7 +64,7 @@ function getWelcomePage(role) {
                 document.querySelector("main").innerHTML = data;
             })
             .then(() => {
-                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/cart/cartItems.css"></link>');
+                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/user/user.css"></link>');
             });
     }
 }
