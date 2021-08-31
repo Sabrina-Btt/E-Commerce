@@ -43,6 +43,27 @@ main .container hr {
   width: 90%;
   color: #df7197;
 }
+main .container .title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  gap: 10px;
+}
+main .container .title .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 35px;
+  background-color: #df7197;
+}
+main .container .title .icon i {
+  color: whitesmoke;
+}
 main .container .info {
   display: flex;
   flex-direction: column;

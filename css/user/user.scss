@@ -47,6 +47,29 @@ main{
             width: 90%;
             color: #df7197;
         }
+        
+        .title{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 60%;
+            gap:10px;
+
+            .icon{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 50px;
+                width: 50px;
+                border: none;
+                border-radius: 35px;
+                background-color: #df7197;
+                i{
+                    color: whitesmoke;
+                }
+            }
+        }
 
         .info{
             display: flex;
