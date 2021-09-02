@@ -16,7 +16,7 @@ function renderPage(products) {
 
     decrementQuantityDisplay();
 
-    getUserIdFromCookie();
+    getUserId();
 
     getLoginPage();
 
@@ -64,6 +64,8 @@ function getAllProductsDataBase() {
 
 //Renderiza os produtos que pegamos do banco de dados
 function renderProducts(products) {
+    if (!products)
+        return;
     products.map(elem => {
         let listProduct = document.getElementById("featured");
         if (!listProduct)
@@ -104,7 +106,7 @@ function setQuantityCart() {
 
 //Pega a quantidade de produtos no carrinho
 function getQuantityCart() {
-    return getCookieAllProducts().length;
+    return getAllProductsIds().length;
 }
 
 //Função que adiciona o produto selecionado ao carrinho
@@ -121,9 +123,7 @@ function addToCart() {
             if (ProductFound !== undefined) {
                 ProductFound.qtd = elem.parentElement.querySelector(".qtd-display").getAttribute("qtd");
             } else {
-                let now = new Date();
-                let expireCookie = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 20);
-                document.cookie = `${currentId}=${qtd};expires=${expireCookie}`;
+                localStorage.setItem(`${currentId}`, `${qtd}`);
             }
             setQuantityCart();
         }
@@ -163,56 +163,26 @@ function decrementQuantityDisplay() {
 }
 
 //Função para pegar somente os produtos do cookie
-function getCookieAllProducts() {
-    let products = document.cookie.split(';');
-    let ids = [];
-    let qtd = [];
-    let vec = [];
-
-    ids = products.map(elem => {
-        let key = elem.split('=')[0].trim();
-        if (key !== "userId")
-            return key;
-    });
-
-    qtd = products.map(elem => {
-        let key = elem.split('=')[0].trim();
-        if (key !== "userId") {
-            return elem.split('=')[1];
-        }
-    });
-    ids = ids.filter(elem => elem !== undefined)
-    qtd = qtd.filter(elem => elem !== undefined)
-
-    if (ids[0] !== '') {
-        for (let i = 0; i < ids.length; i++) {
-            vec.push([ids[i], qtd[i]]);
-        }
-    }
-    return vec;
+function getAllProductsIds() {
+    let keys = Object.keys(localStorage);
+    keys = keys.filter(elem => elem !== "userId");
+    return keys;
 }
 
 //---------------------------------------------- Login ---------------------------------------------------------------------------------//
 //Função utilizada para pegar o id do usuario logado
-function getUserIdFromCookie() {
-    let cookieList = document.cookie.split(';');
-    let userID = null;
-    cookieList.forEach(elem => {
-        let object = elem.split('=');
-        let key = object[0].trim();
-        if (key == "userId")
-            userID = object[1].trim();
-    });
-    return userID;
+function getUserId() {
+
+    return localStorage.getItem("userId");
 }
 
 
-function getLoginPage(){
-    document.getElementById("login-icon").onclick = function (e) {   
-        if(getUserIdFromCookie() !== null)
+function getLoginPage() {
+    document.getElementById("login-icon").onclick = function (e) {
+        if (getUserId() !== null)
             window.location.assign("welcome.html")
         else
             window.location.assign("login.html")
 
-    }    
+    }
 }

@@ -1,6 +1,8 @@
-setTimeout(() => {getUserRegister(getUserIdFromCookie())}, 200)
+setTimeout(() => { getUserRegister(getUserId()) }, 200)
 
 function getUserRegister(id) {
+    if (!id)
+        return;
     const token = 'd2e7727e16065b64a486255d82e999';
     fetch(
         'https://graphql.datocms.com/',

@@ -2,12 +2,12 @@ getCartPage();
 renderItems();
 
 let totalValue = 5;
-setTimeout(() => { getUserInfo(getUserIdFromCookie()); }, 250);
+setTimeout(() => { getUserInfo(getUserId()); }, 250);
 
 
 //Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
 function getCartPage() {
-    if (getCookieAllProducts().length === 0) {
+    if (getAllProductsIds().length === 0) {
         fetch("../components/cart.html")
             .then(response => {
                 return response.text()
@@ -34,15 +34,17 @@ function getCartPage() {
 
 //Função que renderiza os produtos na pagina do carrinho.
 function renderItems() {
-    let cartProducts = getCookieAllProducts();
+    let cartProducts = getAllProductsIds();
 
-    cartProducts.map(infoProd => {
-        getCartProductsBd(infoProd[0], infoProd[1]);
+    cartProducts.map(id => {
+        getCartProductsBd(id, localStorage.getItem(id));
     })
 
 }
 //Função para pegar os produtos do banco de dados
 function getCartProductsBd(id, qtd) {
+    if (!id)
+        return;
     const token = 'd2e7727e16065b64a486255d82e999';
     fetch(
         'https://graphql.datocms.com/',
@@ -87,7 +89,8 @@ function getCartProductsBd(id, qtd) {
 
 //Função para renderizar os produtos que estão no carrinho
 function renderProductsCart(product, qtd) {
-
+    if (!product)
+        return;
     console.log(product);
     let listItems = document.getElementById("items-to-display");
     if (!listItems)
@@ -117,28 +120,28 @@ function removeProductCart() {
             let NodeRemove = elem.parentNode;
             if (NodeRemove.parentNode) {
                 recalculateTotalValue(NodeRemove.getAttribute("price"), NodeRemove.getAttribute("qtd"));
-                document.cookie = `${NodeRemove.id}=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+                localStorage.removeItem(`${NodeRemove.id}`);
                 NodeRemove.parentNode.removeChild(NodeRemove);
                 setQuantityCart()
-                if (getCookieAllProducts().length === 0) {
+                if (getAllProductsIds().length === 0) {
                     getCartPage();
-                } 
+                }
             }
         }
     })
 }
 
-function recalculateTotalValue(price, qtd){
+function recalculateTotalValue(price, qtd) {
     totalValue -= Number(price) * qtd;
     document.getElementById("totalCartValue").innerHTML = ` Valor Total: R$${totalValue},00 `;
-    
+
 }
 
 function setTotalValue(products, qtd) {
     totalValue += Number(products.price) * qtd;
 }
 
-function renderTotalValue(){
+function renderTotalValue() {
     let displayTotalValue = document.getElementById("user-info");
     let htmlInsert = `
         <h3>Dados do Pedido</h3>
@@ -154,13 +157,15 @@ function renderTotalValue(){
     displayTotalValue.insertAdjacentHTML('afterbegin', htmlInsert)
 }
 
-function redirectToLogin(){
-    document.getElementById("login-cart").onclick = function (e){
+function redirectToLogin() {
+    document.getElementById("login-cart").onclick = function (e) {
         window.location.assign("login.html");
     }
 }
 
 function renderUserInfo(userinfo) {
+    if (!userinfo)
+        return;
     let displayUserInfo = document.getElementById("user-info");
     console.log(document.getElementById("user-info"))
     if (!displayUserInfo)
@@ -227,7 +232,6 @@ function getUserInfo(id) {
         .catch((error) => {
             renderTotalValue();
             redirectToLogin();
-            console.log(error);
         });
 }
 

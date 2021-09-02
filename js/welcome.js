@@ -1,8 +1,10 @@
-getUserRole(getUserIdFromCookie());
-setTimeout(() => {logout()}, 2000)
+getUserRole(getUserId());
+setTimeout(() => { logout() }, 2000)
 
 
 function getUserRole(id) {
+    if (!id)
+        return;
     const token = 'd2e7727e16065b64a486255d82e999';
     fetch(
         'https://graphql.datocms.com/',
@@ -70,10 +72,10 @@ function getWelcomePage(role) {
 }
 
 
-function logout(){
+function logout() {
     document.getElementById("logout").onclick = function (e) {
-        document.cookie = `userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+        localStorage.removeItem("userId");
         window.location.assign("login.html")
     }
-    
+
 }
