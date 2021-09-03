@@ -3,6 +3,7 @@ renderItems();
 
 let totalValue = 5;
 setTimeout(() => { getUserInfo(getUserId()); }, 250);
+setTimeout(() => { generateOrder(); }, 800);
 
 
 //Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
@@ -185,7 +186,7 @@ function renderUserInfo(userinfo) {
             
         <p>Taxa de entrega: R$5,00</p>
         <p id="totalCartValue">Valor Total: R$${totalValue},00 </p>
-        <button class="text-button">
+        <button id="genOrders" class="text-button">
             Finalizar Pedido
         </button>
 
@@ -233,6 +234,60 @@ function getUserInfo(id) {
             renderTotalValue();
             redirectToLogin();
         });
+}
+
+const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
+
+
+function generateOrder(){
+    document.getElementById("genOrders").onclick = function (e){
+        e.preventDefault();
+
+        let ordersIds = [];
+        let products = getAllProductsIds();
+
+        async function createOrderItem(item) {
+   
+            try {
+                const record = await client.items.create({
+                    itemType: "972340", // model ID
+                    
+                    productId : Number(item),
+                    quantity : Number(localStorage.getItem(item))                                 
+                    
+                });
+        
+                ordersIds.push(record.id);
+        
+            } catch (error) {
+                alert("Erro na criação do pedido!");
+            }
+            
+        }
+    
+        async function createOrder() {
+            try {
+                await products.forEach(createOrderItem);
+
+                const record = await client.items.create({
+                    itemType: "972326", // model ID
+                    
+                    userId :  Number(localStorage.getItem("userId")),
+                    totalPrice : parseFloat(totalValue),
+                    orderItems:  ordersIds,         
+                });
+    
+            } catch (error) {
+                alert("Erro na criação do pedido!");
+            }
+        }
+        createOrder();
+
+        alert("Pedido efetuado com sucesso!!");
+        window.location.assign("welcome.html");
+
+        //remover os produtos do carrinho?
+    }
 }
 
 
