@@ -239,52 +239,55 @@ function getUserInfo(id) {
 const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
 
 
-function generateOrder(){
-    document.getElementById("genOrders").onclick = function (e){
+async function generateOrder() {
+    document.getElementById("genOrders").onclick = function (e) {
         e.preventDefault();
 
         let ordersIds = [];
         let products = getAllProductsIds();
 
         async function createOrderItem(item) {
-   
+
             try {
                 const record = await client.items.create({
                     itemType: "972340", // model ID
-                    
-                    productId : Number(item),
-                    quantity : Number(localStorage.getItem(item))                                 
-                    
+
+                    productId: Number(item),
+                    quantity: Number(localStorage.getItem(item))
+
                 });
-        
-                ordersIds.push(record.id);
-        
+
+                return record.id;
             } catch (error) {
                 alert("Erro na criação do pedido!");
             }
-            
         }
-    
+
+
+
         async function createOrder() {
             try {
-                await products.forEach(createOrderItem);
+                alert("Registrando pedido!!");
+                for (const item of getAllProductsIds()) {
+                    const id = await createOrderItem(item);
+                    ordersIds.push(id);
+                };
 
                 const record = await client.items.create({
                     itemType: "972326", // model ID
-                    
-                    userId :  Number(localStorage.getItem("userId")),
-                    totalPrice : parseFloat(totalValue),
-                    orderItems:  ordersIds,         
+
+                    userId: Number(localStorage.getItem("userId")),
+                    totalPrice: parseFloat(totalValue),
+                    orderItems: ordersIds,
                 });
-    
+                alert("Pedido efetuado com sucesso!!");
+                getAllProductsIds().forEach(id => localStorage.removeItem(id));
+                window.location.assign("welcome.html");
             } catch (error) {
                 alert("Erro na criação do pedido!");
             }
         }
         createOrder();
-
-        alert("Pedido efetuado com sucesso!!");
-        window.location.assign("welcome.html");
 
         //remover os produtos do carrinho?
     }

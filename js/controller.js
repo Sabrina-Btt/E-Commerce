@@ -172,7 +172,6 @@ function getAllProductsIds() {
 //---------------------------------------------- Login ---------------------------------------------------------------------------------//
 //Função utilizada para pegar o id do usuario logado
 function getUserId() {
-
     return localStorage.getItem("userId");
 }
 
