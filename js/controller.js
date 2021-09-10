@@ -8,22 +8,22 @@ function renderPage(products) {
     products = products.slice(0, 3);
     renderProducts(products);
 
-    addToCart();
+    // addToCart();
 
-    setQuantityCart();
+    // setQuantityCart();
 
-    incrementQuantityDisplay();
+    // incrementQuantityDisplay();
 
-    decrementQuantityDisplay();
+    // decrementQuantityDisplay();
 
-    getUserId();
+    // getUserId();
 
-    getLoginPage();
+    // getLoginPage();
 
 }
 
 //Funções Auxiliares // Pega todos os produtos do banco de dados 
-function getAllProductsDataBase() {
+function getAllProductsDataBase(isAll) {
     const token = 'd2e7727e16065b64a486255d82e999';
 
     fetch(
@@ -44,6 +44,9 @@ function getAllProductsDataBase() {
                         price
                         description
                         id
+                        image{
+                            url
+                          }
                       }
                 }`
             }),
@@ -52,9 +55,56 @@ function getAllProductsDataBase() {
         .then(res => res.json())
         .then((res) => {
             if (res.data.allProducts.length !== 0) {
-                renderPage(res.data.allProducts);
+                if (isAll) {
+                    renderProducts(res.data.allProducts);
+                } else {
+                    renderPage(res.data.allProducts);
+                }
             } else {
                 alert("Query Error! Could not get products from database!");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+function getProductsDataBaseWithType(types) {
+    const token = 'd2e7727e16065b64a486255d82e999';
+    document.getElementById("featured").innerHTML = "";
+    fetch(
+        'https://graphql.datocms.com/',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `${token}`,
+            },
+            body: JSON.stringify({
+                query: `
+                {
+                    allProducts(filter: {category: {in: ${types}}}){
+                        inStock
+                        name
+                        price
+                        description
+                        id
+                        image{
+                            url
+                          }
+                      }
+                }`
+            }),
+        }
+    )
+        .then(res => res.json())
+        .then((res) => {
+            if (res.data.allProducts.length !== 0) {
+                renderProducts(res.data.allProducts);
+            } else {
+                getAllProductsDataBase(true);
+                alert("No momento não temos produtos dessa categoria!");
             }
         })
         .catch((error) => {
@@ -70,9 +120,10 @@ function renderProducts(products) {
         let listProduct = document.getElementById("featured");
         if (!listProduct)
             return;
+
         let htmlInsert = `
             <div class="product">
-                <img src="../images/logo.png" alt="">
+                <img src="${elem.image.url}" alt="erro">
                 <h2>${elem.name}</h2>
 
                 <span>${elem.description}</span>
@@ -80,7 +131,7 @@ function renderProducts(products) {
                 <span>Preço: R$${Number(elem.price).toFixed(2)} </span>
 
                 <div class="buttons">
-                    <div class="quantity-button">
+                    <div class="quantity-button" maxQuantity=${elem.inStock}>
                         <button class="minus">
                             -
                         </button>
@@ -95,8 +146,21 @@ function renderProducts(products) {
                 </div>
             </div>
         `
+
         listProduct.insertAdjacentHTML('beforeend', htmlInsert)
+
     })
+    addToCart();
+
+    setQuantityCart();
+
+    incrementQuantityDisplay();
+
+    decrementQuantityDisplay();
+
+    getUserId();
+
+    getLoginPage();
 }
 
 //Redefine a quantidade de produtos no carrinho
@@ -136,9 +200,17 @@ function incrementQuantityDisplay() {
     let displayIncrement = Array.from(document.querySelectorAll(".plus"));
     displayIncrement.map(elem => {
         elem.onclick = function (e) {
+            let maxQuantity = elem.parentNode.getAttribute("maxQuantity");
             e.preventDefault();
             let htmlDisplay = elem.previousElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd")) + 1;
+
+            if (res >= maxQuantity) {
+                elem.style.backgroundColor = "#808080";
+                elem.disabled = true;
+                res = maxQuantity;
+            }
+            elem.parentNode.firstElementChild.style.backgroundColor = "#df7197";
             htmlDisplay.innerHTML = res;
             htmlDisplay.setAttribute("qtd", res);
         }
@@ -153,9 +225,12 @@ function decrementQuantityDisplay() {
             e.preventDefault();
             let htmlDisplay = elem.nextElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd")) - 1;
-            if (res < 1) {
+            if (res <= 1) {
+                elem.style.backgroundColor = "#808080";
                 res = 1;
             }
+            elem.parentNode.lastElementChild.disabled = false;
+            elem.parentNode.lastElementChild.style.backgroundColor = "#df7197";
             htmlDisplay.innerHTML = res;
             htmlDisplay.setAttribute("qtd", res);
         }
