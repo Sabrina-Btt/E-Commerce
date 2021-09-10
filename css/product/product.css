@@ -40,6 +40,7 @@ main .products .product img {
   align-self: center;
   width: 30%;
   border-radius: 10px;
+  max-height: 95px;
 }
 main .products .product span, main .products .product h2 {
   margin-top: 10px;

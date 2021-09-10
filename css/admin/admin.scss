@@ -28,7 +28,6 @@ main{
             background-color: #df7197;
             cursor: pointer;
         }
-
     }
 
     
@@ -141,5 +140,10 @@ main{
             }
         }
 
+    }
+
+    #add-product{
+        cursor:no-drop;
+        background-color:#808080;
     }
 }

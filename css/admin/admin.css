@@ -118,5 +118,9 @@ main .card .orders .new-order .text-button {
 main .card .orders .new-order .fa-chevron-down {
   color: #df7197;
 }
+main #add-product {
+  cursor: no-drop;
+  background-color: #808080;
+}
 
 /*# sourceMappingURL=admin.css.map */

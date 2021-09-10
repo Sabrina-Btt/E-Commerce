@@ -1,11 +1,10 @@
 const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
-let TesteArq;
+let uploadArq;
 
 setTimeout(() => { addProductToDB() }, 1000)
 
 function addProductToDB() {
     document.getElementById("add-product").onclick = function (e) {
-
         e.preventDefault();
 
         let form = document.getElementById("addProduct");
@@ -20,8 +19,8 @@ function addProductToDB() {
                     name: form[0].value,
                     category: form[3].value,
                     description: form[1].value,
-                    testeimg: {
-                        uploadId: TesteArq.id,
+                    image: {
+                        uploadId: uploadArq.id,
                     },
 
                 });
@@ -37,14 +36,24 @@ function addProductToDB() {
 
 async function UploadFile() {
     const fileInput = document.querySelector('#file-selector');
+    let botao = document.getElementById("add-product");
+
     fileInput.addEventListener("change", async (event) => {
+        botao.disabled = true;
+        botao.style.backgroundColor = "#808080";
+        botao.style.cursor = "no-drop";
+
         const files = event.target.files;
         for (let file of files) {
             const path = await createUpload(file)
             const upload = await client.uploads.create({
                 path,
             });
-            TesteArq = upload;
+            uploadArq = upload;
+
+            botao.disabled = false;
+            botao.style.backgroundColor = "#df7197";
+            botao.style.cursor = "pointer";
             //Tornar o botão disponivel
         }
     });
