@@ -32,6 +32,11 @@ function getUserBd(email, senha) {
                       }
                     ) {
                       id
+                      fullName
+                      phone
+                      address{
+                          id
+                      }
                     }
                 }`
             }),
@@ -40,7 +45,7 @@ function getUserBd(email, senha) {
         .then(res => res.json())
         .then((res) => {
             if (res.data.allUsers.length !== 0) {
-                liberaAcesso(res.data.allUsers[0].id);
+                liberaAcesso(res.data.allUsers[0]);
             } else {
                 alert("Acesso Negado!!!!!!!");
             }
@@ -51,10 +56,15 @@ function getUserBd(email, senha) {
 
 }
 
-function liberaAcesso(id) {
-    if (!id)
+function liberaAcesso(userInfo) {
+    console.log(userInfo);
+    if (!userInfo.id)
         return;
-    localStorage.setItem("userId", `${id}`);
+    localStorage.setItem("userId", `${userInfo.id}`);
+    localStorage.setItem("userPhone", `${userInfo.phone}`);
+    localStorage.setItem("userName", `${userInfo.fullName}`);
+    localStorage.setItem("userAddress", `${userInfo.address.id}`);
+    console.log(localStorage);
     alert("Acesso Liberado!");
     window.location.assign("index.html");
 }

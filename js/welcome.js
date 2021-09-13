@@ -75,6 +75,10 @@ function getWelcomePage(role) {
 function logout() {
     document.getElementById("logout").onclick = function (e) {
         localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userAddress");
+        localStorage.removeItem("userPhone");
+        console.log(localStorage);
         window.location.assign("login.html")
     }
 

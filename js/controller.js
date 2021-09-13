@@ -240,7 +240,7 @@ function decrementQuantityDisplay() {
 //Função para pegar somente os produtos do cookie
 function getAllProductsIds() {
     let keys = Object.keys(localStorage);
-    keys = keys.filter(elem => elem !== "userId");
+    keys = keys.filter(elem => elem !== "userId" && elem !== "userName" && elem !== "userAddress" && elem !== "userPhone" && elem !== "productsInCart");
     return keys;
 }
 

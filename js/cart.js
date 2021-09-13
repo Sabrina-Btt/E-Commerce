@@ -36,7 +36,7 @@ function getCartPage() {
 //Função que renderiza os produtos na pagina do carrinho.
 function renderItems() {
     let cartProducts = getAllProductsIds();
-
+    localStorage.removeItem("productsInCart");
     cartProducts.map(id => {
         getCartProductsBd(id, localStorage.getItem(id));
     })
@@ -95,14 +95,14 @@ function getCartProductsBd(id, qtd) {
 function renderProductsCart(product, qtd) {
     if (!product)
         return;
-    console.log(product);
+
     let listItems = document.getElementById("items-to-display");
     if (!listItems)
         return;
     let htmlInsert = `
         <div class="products" id="${product.id}" price="${product.price}" qtd="${qtd}">
                 <img src="${product.image.url}">
-                <h4>${product.name}</h4>
+                <h4 id="pName">${product.name}</h4>
                 <h4>Quantidade: ${qtd}</h4>
                 <h4>R$${product.price},00</h4>
                 <button class="removeProduct">
@@ -110,6 +110,12 @@ function renderProductsCart(product, qtd) {
                 </button>
         </div>
     `
+    let nameItem = JSON.parse(localStorage.getItem("productsInCart"));
+    nameItem = nameItem === null ? [] : nameItem;
+    if (!nameItem.some(elem => elem === product.name)) {
+        nameItem.push(product.name.trim());
+        localStorage.setItem("productsInCart", JSON.stringify(nameItem));
+    }
     listItems.insertAdjacentHTML('beforeend', htmlInsert);
     removeProductCart();
 }
@@ -122,8 +128,12 @@ function removeProductCart() {
         elem.onclick = function (e) {
             e.preventDefault();
             let NodeRemove = elem.parentNode;
+            let productName = elem.parentNode.textContent.split("\n")[2].trim();
             if (NodeRemove.parentNode) {
                 recalculateTotalValue(NodeRemove.getAttribute("price"), NodeRemove.getAttribute("qtd"));
+                let nameItem = JSON.parse(localStorage.getItem("productsInCart"));
+                nameItem.splice(nameItem.indexOf(productName), 1);
+                localStorage.setItem("productsInCart", JSON.stringify(nameItem));
                 localStorage.removeItem(`${NodeRemove.id}`);
                 NodeRemove.parentNode.removeChild(NodeRemove);
                 setQuantityCart()
@@ -171,7 +181,7 @@ function renderUserInfo(userinfo) {
     if (!userinfo)
         return;
     let displayUserInfo = document.getElementById("user-info");
-    console.log(document.getElementById("user-info"))
+    //console.log(document.getElementById("user-info"))
     if (!displayUserInfo)
         return;
     let htmlInsert = `
@@ -247,7 +257,6 @@ async function generateOrder() {
         e.preventDefault();
 
         let ordersIds = [];
-        let products = getAllProductsIds();
 
         async function createOrderItem(item) {
 
@@ -256,10 +265,13 @@ async function generateOrder() {
                     itemType: "972340", // model ID
 
                     productId: Number(item),
-                    quantity: Number(localStorage.getItem(item))
-
+                    quantity: Number(localStorage.getItem(item)),
+                    productname: JSON.parse(localStorage.getItem("productsInCart"))[0]
                 });
 
+                let nameItem = JSON.parse(localStorage.getItem("productsInCart"));
+                nameItem.shift();
+                localStorage.setItem("productsInCart", JSON.stringify(nameItem));
                 return record.id;
             } catch (error) {
                 alert("Erro na criação do pedido!");
@@ -282,6 +294,9 @@ async function generateOrder() {
                     userId: Number(localStorage.getItem("userId")),
                     totalPrice: parseFloat(totalValue),
                     orderItems: ordersIds,
+                    username: localStorage.getItem("userName"),
+                    user_phone: localStorage.getItem("userPhone"),
+                    user_address: localStorage.getItem("userAddress"),
                 });
                 alert("Pedido efetuado com sucesso!!");
                 getAllProductsIds().forEach(id => localStorage.removeItem(id));
