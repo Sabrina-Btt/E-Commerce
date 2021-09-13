@@ -114,12 +114,17 @@ main{
             .new-order{
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-direction: row;
-                padding: 10px 10px 10px 10px;          
+                justify-content: center;
+                //align-items: center;
+                flex-direction: column;
+                padding: 0px 10px 0px 10px;          
                 border: 1px solid #df7197;
                 border-radius: 5px;
+                
+                h4{
+                    margin-top: 10px;
+                    text-align: left;
+                }
 
                 .text-button{
                     margin-top: 10px;
@@ -133,10 +138,7 @@ main{
                     cursor: pointer;
                 }
 
-                .fa-chevron-down{
-                    color: #df7197;
-                }
-
+               
             }
         }
 
@@ -144,6 +146,6 @@ main{
 
     #add-product{
         cursor:no-drop;
-        background-color:#808080;
+        background-color:#ffa7c5;
     }
 }

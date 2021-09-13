@@ -42,7 +42,7 @@
             </button> -->
             <input type="file" id="file-selector" onclick="UploadFile()">
 
-            <button id='add-product' class="text-button" disabled cursor="no-drop" style="background-Color:#808080">
+            <button id='add-product' class="text-button" disabled cursor="no-drop">
                 Adicionar Produto
             </button>
 
@@ -64,28 +64,12 @@
 
     </div>
 
-    <div class="orders">
+    <div id="order" class="orders">
         <h3>Gerenciar Pedidos</h3>
 
         <hr>
 
-        <div class="new-order">
-            <p>Nome Cliente</p>
-            <p>Valor Total: R$0,00</p>
-
-            <select name="status">
-                <option value="pedido-feito" selected>Pedido Feito</option>
-                <option value="preparando">Preparando</option>
-                <option value="pedido-concluido">Pedido Concluido</option>
-            </select>
-
-            <button id='att-order' class="text-button">
-                Atualizar
-            </button>
-
-            <i class="fa fa-chevron-down"></i>
-
-        </div>
+        
     </div>
 
 </div>

@@ -2,6 +2,7 @@ const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
 let uploadArq;
 
 setTimeout(() => { addProductToDB() }, 1000)
+setTimeout(() => { getOrders() }, 1000)
 
 function addProductToDB() {
     document.getElementById("add-product").onclick = function (e) {
@@ -40,7 +41,7 @@ async function UploadFile() {
 
     fileInput.addEventListener("change", async (event) => {
         botao.disabled = true;
-        botao.style.backgroundColor = "#808080";
+        botao.style.backgroundColor = "#ffa7c5";
         botao.style.cursor = "no-drop";
 
         const files = event.target.files;
@@ -82,5 +83,81 @@ async function createUpload(file) {
     });
     return path;
 
+}
+
+function getOrders() {
+    const token = 'd2e7727e16065b64a486255d82e999';
+    fetch(
+        'https://graphql.datocms.com/',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `${token}`,
+            },
+            body: JSON.stringify({
+                query: `
+                {
+                    allOrders {
+                        id
+                        userId
+                        totalPrice
+                        orderItems {
+                          productId
+                          quantity
+                        }
+                      }
+                    
+                }`
+            }),
+        }
+    )
+        .then(res => res.json())
+        .then((res) => {
+            if (res.data.allOrders.length !== 0) {
+                console.log(res.data.allOrders)
+                showOrders(res.data.allOrders)
+            } else {
+                alert("Acesso Negado!!!!!!!");
+            }
+        })
+        .catch((error) => {
+           console.log(error);
+        });
+}
+
+
+async function showOrders(order){
+
+    for (elem of order){
+        const user = await getUser(elem.userId);
+        console.log(user);
+        let listOrder = document.getElementById("order");
+        if (!listOrder)
+            return;
+
+        let htmlInsert = `
+
+        <div id="new-order" class="new-order">
+
+            <h4>Pedido Número: ${elem.id}</h4>
+            <p>Nome Cliente: ${user[0].fullName}</p>
+            <p>Endereço de entrega: 
+            <p>${elem.orderItems.map(prod =>{ 
+         
+               `produto: ${prod.productId} quantidade: ${prod.quantity}`        
+            })}</p>
+            <p>Valor Total: ${elem.totalPrice}</p>
+
+            <button id='att-order' class="text-button">
+                Finalizar Pedido
+            </button>
+        </div>
+           
+        `
+
+        listOrder.insertAdjacentHTML('beforeend', htmlInsert)
+    }
 }
 

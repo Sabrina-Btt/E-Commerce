@@ -206,7 +206,7 @@ function incrementQuantityDisplay() {
             let res = Number(htmlDisplay.getAttribute("qtd")) + 1;
 
             if (res >= maxQuantity) {
-                elem.style.backgroundColor = "#808080";
+                elem.style.backgroundColor = "#ffa7c5";
                 elem.disabled = true;
                 res = maxQuantity;
             }
@@ -226,7 +226,7 @@ function decrementQuantityDisplay() {
             let htmlDisplay = elem.nextElementSibling;
             let res = Number(htmlDisplay.getAttribute("qtd")) - 1;
             if (res <= 1) {
-                elem.style.backgroundColor = "#808080";
+                elem.style.backgroundColor = "#ffa7c5";
                 res = 1;
             }
             elem.parentNode.lastElementChild.disabled = false;

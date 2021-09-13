@@ -67,6 +67,9 @@ function getCartProductsBd(id, qtd) {
                       name 
                       price
                       id
+                      image{
+                        url
+                      }
                     }
                 }`
             }),
@@ -98,7 +101,7 @@ function renderProductsCart(product, qtd) {
         return;
     let htmlInsert = `
         <div class="products" id="${product.id}" price="${product.price}" qtd="${qtd}">
-                <img src="../../images/doces.png">
+                <img src="${product.image.url}">
                 <h4>${product.name}</h4>
                 <h4>Quantidade: ${qtd}</h4>
                 <h4>R$${product.price},00</h4>

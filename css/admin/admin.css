@@ -97,12 +97,15 @@ main .card .orders {
 main .card .orders .new-order {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  padding: 10px 10px 10px 10px;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0px 10px 0px 10px;
   border: 1px solid #df7197;
   border-radius: 5px;
+}
+main .card .orders .new-order h4 {
+  margin-top: 10px;
+  text-align: left;
 }
 main .card .orders .new-order .text-button {
   margin-top: 10px;
@@ -115,12 +118,9 @@ main .card .orders .new-order .text-button {
   background-color: #df7197;
   cursor: pointer;
 }
-main .card .orders .new-order .fa-chevron-down {
-  color: #df7197;
-}
 main #add-product {
   cursor: no-drop;
-  background-color: #808080;
+  background-color: #ffa7c5;
 }
 
 /*# sourceMappingURL=admin.css.map */
