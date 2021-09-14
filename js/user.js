@@ -1,4 +1,5 @@
 setTimeout(() => { getUserRegister(getUserId()) }, 200)
+setTimeout(() => { getUserOrders(getUserId()) }, 200)
 
 function getUserRegister(id) {
     if (!id)
@@ -80,4 +81,81 @@ function renderUserRegister(userinfo) {
 
     `
     displayUserInfo.insertAdjacentHTML('beforeend', htmlInsert)
+}
+
+function getUserOrders(id){
+    const token = 'd2e7727e16065b64a486255d82e999';
+    fetch(
+        'https://graphql.datocms.com/',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `${token}`,
+            },
+            body: JSON.stringify({
+                query: `
+                {
+                    allOrders(filter: {userId: {eq: ${id}}}) {
+                        id
+                        totalPrice
+                        orderItems {
+                          productname
+                          quantity
+                        }
+                    }
+                }`
+            }),
+        }
+    )
+        .then(res => res.json())
+        .then((res) => {
+            if (res.data.allOrders.length !== 0) {
+                console.log(res.data.allOrders)
+                renderUserOrders(res.data.allOrders)
+            } else {
+                renderOrdersCard();
+                alert("Acesso Negado!!!!!!!");
+            }
+        })
+        .catch((error) => {
+           console.log(error);
+        });
+
+}
+
+function renderUserOrders(orders){
+    for(elem of orders){
+        var listOrder = document.getElementById("orders");
+        console.log("aqui",elem.orderItems);
+    
+        var htmlInsert = `
+            <h3>Pedido número ${elem.id}</h3>
+            <h4>Produtos:</h4>
+        `
+        for(item of elem.orderItems){
+            htmlInsert += `<p>Nome: ${item.productname}  Quantidade: ${item.quantity}</p>`
+
+        }
+
+        htmlInsert += `<p>Valor Total: R$${elem.totalPrice},00</p>`
+
+        listOrder.insertAdjacentHTML('beforeend', htmlInsert)
+    }   
+
+    
+}
+
+function renderOrdersCard(){
+    let display = document.getElementById("orders");
+
+    let htmlInsert = `
+        Nenhum pedido ativo, mas que tal conferir nossas delícias?
+        <button class="text-button">
+            Confira!
+        </button>
+    `
+    display.insertAdjacentHTML('beforeend', htmlInsert);
+
 }

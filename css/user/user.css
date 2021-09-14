@@ -116,6 +116,14 @@ main .container .card .orders .text-button {
   background-color: #df7197;
   cursor: pointer;
 }
+main .container .card .orders h4 {
+  margin-top: 10px;
+}
+main .container .card .orders p {
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 5px;
+}
 main .container .card .contact {
   display: flex;
   flex-direction: column;

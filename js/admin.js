@@ -3,6 +3,7 @@ let uploadArq;
 
 setTimeout(() => { addProductToDB() }, 1000)
 setTimeout(() => { getOrders() }, 1000)
+setTimeout(() => { deleteOrder() }, 3000)
 
 function addProductToDB() {
     document.getElementById("add-product").onclick = function (e) {
@@ -101,10 +102,17 @@ function getOrders() {
                 {
                     allOrders {
                         id
-                        userId
+                        username
+                        userPhone
+                        userAddress {
+                          street
+                          number
+                          district
+                          city
+                        }
                         totalPrice
                         orderItems {
-                          productId
+                          productname
                           quantity
                         }
                       }
@@ -115,9 +123,9 @@ function getOrders() {
     )
         .then(res => res.json())
         .then((res) => {
-            if (res.data.allOrders.length !== 0) {
-                console.log(res.data.allOrders)
-                showOrders(res.data.allOrders)
+            if (res.data.allOrders.length != 0) {
+                console.log(res.data.allOrders);
+                showOrders(res.data.allOrders);
             } else {
                 alert("Acesso Negado!!!!!!!");
             }
@@ -131,33 +139,51 @@ function getOrders() {
 async function showOrders(order){
 
     for (elem of order){
-        const user = await getUser(elem.userId);
-        console.log(user);
-        let listOrder = document.getElementById("order");
+        var listOrder = document.getElementById("order");
         if (!listOrder)
             return;
 
-        let htmlInsert = `
+        var htmlInsert = `
 
         <div id="new-order" class="new-order">
 
             <h4>Pedido Número: ${elem.id}</h4>
-            <p>Nome Cliente: ${user[0].fullName}</p>
-            <p>Endereço de entrega: 
-            <p>${elem.orderItems.map(prod =>{ 
-         
-               `produto: ${prod.productId} quantidade: ${prod.quantity}`        
-            })}</p>
-            <p>Valor Total: ${elem.totalPrice}</p>
+            <p>Nome Cliente: ${elem.username}</p>
+            <p>Telefone de contato: ${elem.userPhone}</p>
+            <p>Endereço de entrega: ${elem.userAddress.street}, ${elem.userAddress.number}, ${elem.userAddress.district}, ${elem.userAddress.city}</p> 
+            <h4>Produtos:</h4>`
 
-            <button id='att-order' class="text-button">
+        for(item of elem.orderItems){
+            htmlInsert += `<p>Nome: ${item.productname}  Quantidade: ${item.quantity}</p>`
+
+        }
+        
+        htmlInsert += 
+            `<p>Valor Total: R$${elem.totalPrice},00</p>
+
+            <button id='fin-order' class="text-button" productId=${elem.id}>
                 Finalizar Pedido
             </button>
-        </div>
-           
-        `
-
-        listOrder.insertAdjacentHTML('beforeend', htmlInsert)
+        </div>`
+     
+        listOrder.insertAdjacentHTML('beforeend', htmlInsert);
     }
+    
+}
+
+function deleteOrder(){
+    console.log(document.getElementById("fin-order"));
+    document.getElementById("fin-order").onclick = function(e){
+        itemId = document.getElementById("fin-order").getAttribute("productId");
+
+        e.preventDefault();
+        client.items.destroy(itemId)
+        .then((item) => {
+          console.log(item);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }   
 }
 

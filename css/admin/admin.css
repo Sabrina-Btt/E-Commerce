@@ -95,13 +95,14 @@ main .card .orders {
   padding: 0px 30px 30px 50px;
 }
 main .card .orders .new-order {
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: 0px 10px 0px 10px;
   border: 1px solid #df7197;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 main .card .orders .new-order h4 {
   margin-top: 10px;
