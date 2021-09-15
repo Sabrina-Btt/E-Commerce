@@ -36,7 +36,7 @@ main div .list-products .product img {
   border-radius: 10px;
   margin-top: 10px;
 }
-main div .list-products .product span, main div .list-products .product h2 {
+main div .list-products .product span, main div .list-products .product h3 {
   margin-top: 10px;
   margin-left: 30px;
   color: gray;

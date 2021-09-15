@@ -16,6 +16,7 @@ function getTypeFilter() {
             type += `"${elem}",`
         });
         type += "]";
+        
         getProductsDataBaseWithType(type);
     }
 }

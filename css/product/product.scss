@@ -7,15 +7,75 @@ main{
 
     .filter{
         grid-area: filter;
-        border-right: 2px solid black;
+        border-right: 2px solid gray;
+
         h4{
-            margin-bottom: 15px;
+            margin:20px 10px 10px 10px;
+            color: #263056;   
+        }
+
+        p{
+            text-align: left;
+            margin: 10px;
         }
 
         #formFilter{
             display:flex;
             flex-direction:column;
+            justify-content: space-between;
+            margin:10px;
+
+            label{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 5px;
+                
+            }
+
+            .filter-button{
+                padding:5px;
+                border:none;
+                border-radius: 5px;
+                color:#fff;
+                font-weight: bold;
+                background-color: #df7197;
+                cursor: pointer;
+                margin-top: 5px;
+                margin-bottom: 20px;
+                
+            }
+        }
+
+        .social-contact{ 
+            width: 100%;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .row{
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                margin: 10px;
+                //margin-top: 30px;
+                //margin-bottom: 30px;
+                width: 60%;
+
+                .icon-button{
+                    height: 50px;
+                    width: 50px;
+                    border: none;
+                    border-radius: 35px;
+                    background-color: #df7197;
+                    i{
+                        color: whitesmoke;
+                    }
+
+                }
+
+            }
         }
 
     }
@@ -36,19 +96,20 @@ main{
             align-items: stretch;
             border: solid 1px gray;
             width:25%;
-            height:270px;
-            max-height: 300px;
+            height:350px;
             margin-bottom: 20px;
             border-radius: 10px;
             
+            //default-size: 1021/580
             img{
                 align-self: center;
-                width:30%;
+                width:80%;
                 border-radius: 10px;
-                max-height: 95px;
+                margin-top: 10px;
+        
             }
 
-            span,h2{
+            span,h3{
                 margin-top: 10px;
                 margin-left: 30px;
                 color: gray;
@@ -83,7 +144,7 @@ main{
                         width: 30px;
                         border: none;
                         border-radius: 35px;
-                        background-color: #df7197;
+                        background-color:#ffa7c5;
                         color:#fff;
                         font-weight: bold;
                         margin-right: 10px;
@@ -92,6 +153,7 @@ main{
                     
                     span{
                         margin-left: 0px;
+                        margin-top: 0px;
                     }
                 }
                 

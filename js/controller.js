@@ -124,7 +124,7 @@ function renderProducts(products) {
         let htmlInsert = `
             <div class="product">
                 <img src="${elem.image.url}" alt="erro">
-                <h2>${elem.name}</h2>
+                <h3>${elem.name}</h3>
 
                 <span>${elem.description}</span>
 
@@ -147,7 +147,7 @@ function renderProducts(products) {
             </div>
         `
 
-        listProduct.insertAdjacentHTML('beforeend', htmlInsert)
+        listProduct.insertAdjacentHTML('beforeend', htmlInsert);
 
     })
     addToCart();

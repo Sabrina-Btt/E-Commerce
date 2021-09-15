@@ -1,9 +1,10 @@
 const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
 let uploadArq;
 
-setTimeout(() => { addProductToDB() }, 1000)
-setTimeout(() => { getOrders() }, 1000)
-setTimeout(() => { deleteOrder() }, 3000)
+setTimeout(() => { addProductToDB() }, 1000);
+setTimeout(() => { getOrders() }, 1000);
+setTimeout(() => { deleteOrder() }, 3000);
+setTimeout(() => { deleteProduct() }, 1000);
 
 function addProductToDB() {
     document.getElementById("add-product").onclick = function (e) {
@@ -185,5 +186,26 @@ function deleteOrder(){
           console.error(error);
         });
     }   
+}
+
+function deleteProduct(){
+    document.getElementById("remove-product").onclick = function (e) {
+        e.preventDefault();
+
+        let form = document.getElementById("removeProduct");
+
+        itemName = form[0].value;
+        //Tem que ser o id!!!
+
+        e.preventDefault();
+        client.items.destroy(itemName)
+        .then((item) => {
+          console.log(item);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+        
+    }
 }
 
