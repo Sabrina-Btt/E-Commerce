@@ -1,26 +1,7 @@
 //---------------------------------------------- Cart ---------------------------------------------------------------------------------//
 let carrinho = [];
+setTimeout(() => { setQuantityCart() }, 500);
 
-getAllProductsDataBase();
-
-//Função usada para renderizar a pagina
-function renderPage(products) {
-    products = products.slice(0, 3);
-    renderProducts(products);
-
-    // addToCart();
-
-    // setQuantityCart();
-
-    // incrementQuantityDisplay();
-
-    // decrementQuantityDisplay();
-
-    // getUserId();
-
-    // getLoginPage();
-
-}
 
 //Funções Auxiliares // Pega todos os produtos do banco de dados 
 function getAllProductsDataBase(isAll) {
@@ -38,7 +19,7 @@ function getAllProductsDataBase(isAll) {
             body: JSON.stringify({
                 query: `
                 {
-                    allProducts {
+                    allProducts(filter: {inStock: {gt: "0"}}) {
                         inStock
                         name
                         price
@@ -58,7 +39,8 @@ function getAllProductsDataBase(isAll) {
                 if (isAll) {
                     renderProducts(res.data.allProducts);
                 } else {
-                    renderPage(res.data.allProducts);
+                    renderProducts(res.data.allProducts, 3);
+                    //renderPage(res.data.allProducts);
                 }
             } else {
                 alert("Query Error! Could not get products from database!");
@@ -84,7 +66,7 @@ function getProductsDataBaseWithType(types) {
             body: JSON.stringify({
                 query: `
                 {
-                    allProducts(filter: {category: {in: ${types}}}){
+                    allProducts(filter: {category: {in: ${types}}, inStock: {gt: "0"}}){
                         inStock
                         name
                         price
@@ -113,9 +95,10 @@ function getProductsDataBaseWithType(types) {
 }
 
 //Renderiza os produtos que pegamos do banco de dados
-function renderProducts(products) {
+function renderProducts(products, size) {
     if (!products)
         return;
+    products = products.slice(0, size === undefined ? products.length : size);
     products.map(elem => {
         let listProduct = document.getElementById("featured");
         if (!listProduct)
@@ -260,3 +243,5 @@ function getLoginPage() {
 
     }
 }
+
+

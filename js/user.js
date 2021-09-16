@@ -1,3 +1,4 @@
+setQuantityCart();
 setTimeout(() => { getUserRegister(getUserId()) }, 200)
 setTimeout(() => { getUserOrders(getUserId()) }, 200)
 
@@ -83,7 +84,7 @@ function renderUserRegister(userinfo) {
     displayUserInfo.insertAdjacentHTML('beforeend', htmlInsert)
 }
 
-function getUserOrders(id){
+function getUserOrders(id) {
     const token = 'd2e7727e16065b64a486255d82e999';
     fetch(
         'https://graphql.datocms.com/',
@@ -112,29 +113,26 @@ function getUserOrders(id){
         .then(res => res.json())
         .then((res) => {
             if (res.data.allOrders.length !== 0) {
-                console.log(res.data.allOrders)
                 renderUserOrders(res.data.allOrders)
             } else {
                 renderOrdersCard();
-                alert("Acesso Negado!!!!!!!");
             }
         })
         .catch((error) => {
-           console.log(error);
+            console.log(error);
         });
 
 }
 
-function renderUserOrders(orders){
-    for(elem of orders){
-        var listOrder = document.getElementById("orders");
-        console.log("aqui",elem.orderItems);
-    
-        var htmlInsert = `
+function renderUserOrders(orders) {
+    for (const elem of orders) {
+        let listOrder = document.getElementById("orders");
+
+        let htmlInsert = `
             <h3>Pedido número ${elem.id}</h3>
             <h4>Produtos:</h4>
         `
-        for(item of elem.orderItems){
+        for (const item of elem.orderItems) {
             htmlInsert += `<p>Nome: ${item.productname}  Quantidade: ${item.quantity}</p>`
 
         }
@@ -142,12 +140,12 @@ function renderUserOrders(orders){
         htmlInsert += `<p>Valor Total: R$${elem.totalPrice},00</p>`
 
         listOrder.insertAdjacentHTML('beforeend', htmlInsert)
-    }   
+    }
 
-    
+
 }
 
-function renderOrdersCard(){
+function renderOrdersCard() {
     let display = document.getElementById("orders");
 
     let htmlInsert = `

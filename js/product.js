@@ -1,3 +1,4 @@
+getAllProductsDataBase(true);
 getTypeFilter();
 
 function getTypeFilter() {
@@ -16,7 +17,7 @@ function getTypeFilter() {
             type += `"${elem}",`
         });
         type += "]";
-        
+
         getProductsDataBaseWithType(type);
     }
 }

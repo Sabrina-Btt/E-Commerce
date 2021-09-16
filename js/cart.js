@@ -1,9 +1,10 @@
+const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
 getCartPage();
 renderItems();
 
 let totalValue = 5;
 setTimeout(() => { getUserInfo(getUserId()); }, 250);
-setTimeout(() => { generateOrder(); }, 800);
+setTimeout(() => { generateOrder(); }, 3000);
 
 
 //Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
@@ -81,8 +82,6 @@ function getCartProductsBd(id, qtd) {
 
                 renderProductsCart(res.data.allProducts[0], qtd);
                 setTotalValue(res.data.allProducts[0], qtd);
-            } else {
-                alert("Acesso Negado!!!!!!!");
             }
         })
         .catch((error) => {
@@ -181,7 +180,7 @@ function renderUserInfo(userinfo) {
     if (!userinfo)
         return;
     let displayUserInfo = document.getElementById("user-info");
-    //console.log(document.getElementById("user-info"))
+
     if (!displayUserInfo)
         return;
     let htmlInsert = `
@@ -249,14 +248,83 @@ function getUserInfo(id) {
         });
 }
 
-const client = new Dato.SiteClient("d2e7727e16065b64a486255d82e999");
-
-
 async function generateOrder() {
     document.getElementById("genOrders").onclick = function (e) {
         e.preventDefault();
-
+        validateQuantityInStock();
         let ordersIds = [];
+
+
+        async function validateQuantityInStock() {
+            let vectorIds = getAllProductsIds();
+            let ids = "["
+            vectorIds.forEach(elem => {
+                ids += `"${elem}",`
+            });
+            ids += "]";
+
+            const token = 'd2e7727e16065b64a486255d82e999';
+            fetch(
+                'https://graphql.datocms.com/',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `${token}`,
+                    },
+                    body: JSON.stringify({
+                        query: `
+                        {
+                            allProducts(filter: {id: {in: ${ids}}}) {
+                                inStock
+                                id
+                                name
+                            }
+                        }`
+                    }),
+                }
+            )
+                .then(res => res.json())
+                .then((res) => {
+                    let currentQtdInStock = res.data.allProducts.map(elem => elem.inStock);
+                    let productsName = res.data.allProducts.map(elem => elem.name);
+                    let productsIds = res.data.allProducts.map(elem => elem.id);
+
+                    let qtdInStock = currentQtdInStock.map(elem => elem - Number(localStorage.getItem(vectorIds[currentQtdInStock.indexOf(elem)])));
+
+                    if (!qtdInStock.some(elem => elem < 0)) {
+                        alert("Checando estoque!");
+                        attStockInDb(productsIds, qtdInStock);
+                    } else {
+                        let noStock = qtdInStock.find(elem => elem < 0);
+
+                        alert(`A quantidade desejada do produto ${productsName[qtdInStock.indexOf(noStock)]} não está mais disponivel` +
+                            `, temos ${currentQtdInStock[qtdInStock.indexOf(noStock)]}` +
+                            ` produtos no estoque, favor, remover elemento e reajustar a quantidade desejada.`);
+                    }
+                })
+                .catch((error) => {
+                    alert("Deu ruim!!!!!!!");
+                });
+
+        }
+
+        async function attStockInDb(ids, quantities) {
+            for (const itemId of ids) {
+                client.items
+                    .update(itemId, {
+                        in_stock: Number(quantities[ids.indexOf(itemId)]),
+                    })
+                    .then((item) => {
+                        console.log(item);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+            createOrder();
+        }
 
         async function createOrderItem(item) {
 
@@ -277,8 +345,6 @@ async function generateOrder() {
                 alert("Erro na criação do pedido!");
             }
         }
-
-
 
         async function createOrder() {
             try {
@@ -305,7 +371,8 @@ async function generateOrder() {
                 alert("Erro na criação do pedido!");
             }
         }
-        createOrder();
+
+        //createOrder();
 
         //remover os produtos do carrinho?
     }

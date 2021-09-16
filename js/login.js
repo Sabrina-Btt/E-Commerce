@@ -57,14 +57,12 @@ function getUserBd(email, senha) {
 }
 
 function liberaAcesso(userInfo) {
-    console.log(userInfo);
     if (!userInfo.id)
         return;
     localStorage.setItem("userId", `${userInfo.id}`);
     localStorage.setItem("userPhone", `${userInfo.phone}`);
     localStorage.setItem("userName", `${userInfo.fullName}`);
     localStorage.setItem("userAddress", `${userInfo.address.id}`);
-    console.log(localStorage);
     alert("Acesso Liberado!");
     window.location.assign("index.html");
 }

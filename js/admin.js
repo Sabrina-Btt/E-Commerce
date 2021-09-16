@@ -72,11 +72,11 @@ async function createUpload(file) {
             switch (type) {
                 // fired before starting upload
                 case "uploadRequestComplete":
-                    console.log(payload.id, payload.url);
+                    //console.log(payload.id, payload.url);
                     break;
                 // fired during upload
                 case "upload":
-                    console.log(payload.percent);
+                    //console.log(payload.percent);
                     break;
                 default:
                     break;
@@ -125,21 +125,20 @@ function getOrders() {
         .then(res => res.json())
         .then((res) => {
             if (res.data.allOrders.length != 0) {
-                console.log(res.data.allOrders);
                 showOrders(res.data.allOrders);
             } else {
-                alert("Acesso Negado!!!!!!!");
+                alert("Sem pedidos no momento!! Não desista, vc vai conseguir!");
             }
         })
         .catch((error) => {
-           console.log(error);
+            console.log(error);
         });
 }
 
 
-async function showOrders(order){
+async function showOrders(order) {
 
-    for (elem of order){
+    for (elem of order) {
         var listOrder = document.getElementById("order");
         if (!listOrder)
             return;
@@ -154,58 +153,86 @@ async function showOrders(order){
             <p>Endereço de entrega: ${elem.userAddress.street}, ${elem.userAddress.number}, ${elem.userAddress.district}, ${elem.userAddress.city}</p> 
             <h4>Produtos:</h4>`
 
-        for(item of elem.orderItems){
+        for (item of elem.orderItems) {
             htmlInsert += `<p>Nome: ${item.productname}  Quantidade: ${item.quantity}</p>`
 
         }
-        
-        htmlInsert += 
+
+        htmlInsert +=
             `<p>Valor Total: R$${elem.totalPrice},00</p>
 
             <button id='fin-order' class="text-button" productId=${elem.id}>
                 Finalizar Pedido
             </button>
         </div>`
-     
+
         listOrder.insertAdjacentHTML('beforeend', htmlInsert);
     }
-    
+
 }
 
-function deleteOrder(){
-    console.log(document.getElementById("fin-order"));
-    document.getElementById("fin-order").onclick = function(e){
-        itemId = document.getElementById("fin-order").getAttribute("productId");
-
+function deleteOrder() {
+    document.getElementById("fin-order").onclick = function (e) {
+        let elem = document.getElementById("fin-order");
+        itemId = elem.getAttribute("productId");
+        let NodeRemove = elem.parentNode;
+        if (NodeRemove) {
+            NodeRemove.parentNode.removeChild(NodeRemove);
+        }
         e.preventDefault();
         client.items.destroy(itemId)
-        .then((item) => {
-          console.log(item);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }   
+            .then((item) => {
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }
 
-function deleteProduct(){
+function deleteProduct() {
     document.getElementById("remove-product").onclick = function (e) {
         e.preventDefault();
 
         let form = document.getElementById("removeProduct");
 
         itemName = form[0].value;
-        //Tem que ser o id!!!
-
-        e.preventDefault();
-        client.items.destroy(itemName)
-        .then((item) => {
-          console.log(item);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-        
+        const token = 'd2e7727e16065b64a486255d82e999';
+        fetch(
+            'https://graphql.datocms.com/',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `${token}`,
+                },
+                body: JSON.stringify({
+                    query: `
+                    {                 
+                        allProducts(filter: {name: {eq: ${itemName}}}) {
+                            id
+                        }
+                                            
+                    }`
+                }),
+            }
+        )
+            .then(res => res.json())
+            .then((res) => {
+                if (res.data.allProducts.length != 0) {
+                    client.items.destroy(res.data.allProducts[0].id)
+                        .then((item) => {
+                            console.log(item);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                } else {
+                    alert("Acesso Negado!!!!!!!");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }
-

@@ -1,5 +1,5 @@
 getUserRole(getUserId());
-setTimeout(() => { logout() }, 2000)
+setTimeout(() => { logout() }, 1000)
 
 
 function getUserRole(id) {
@@ -56,7 +56,12 @@ function getWelcomePage(role) {
             })
             .then(() => {
                 document.querySelector("head").insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="../../css/admin/admin.css"></link>');
-            });
+            })
+            .then(() => {
+                var newScript = document.createElement("script");
+                newScript.src = "../../js/admin.js";
+                document.querySelector("body").appendChild(newScript);
+            })
     } else {
         fetch("../components/user.html")
             .then(response => {
@@ -66,7 +71,12 @@ function getWelcomePage(role) {
                 document.querySelector("main").innerHTML = data;
             })
             .then(() => {
-                document.querySelector("head").insertAdjacentHTML('afterbegin', '<link rel="stylesheet" href="../../css/user/user.css"></link>');
+                document.querySelector("head").insertAdjacentHTML('beforeend', '<link rel="stylesheet" href="../../css/user/user.css"></link>');
+            })
+            .then(() => {
+                var newScript = document.createElement("script");
+                newScript.src = "../../js/user.js";
+                document.querySelector("body").appendChild(newScript);
             });
     }
 }
@@ -78,7 +88,6 @@ function logout() {
         localStorage.removeItem("userName");
         localStorage.removeItem("userAddress");
         localStorage.removeItem("userPhone");
-        console.log(localStorage);
         window.location.assign("login.html")
     }
 
