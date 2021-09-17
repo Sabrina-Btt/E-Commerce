@@ -1,2 +1,2 @@
-# e-commerce
-## Teste de commit
+# E-Commerce Doce Amor
+## Trabalho desenvolvido para a disciplina de Programação Web

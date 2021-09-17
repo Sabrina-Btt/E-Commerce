@@ -172,21 +172,24 @@ async function showOrders(order) {
 }
 
 function deleteOrder() {
-    document.getElementById("fin-order").onclick = function (e) {
-        let elem = document.getElementById("fin-order");
-        itemId = elem.getAttribute("productId");
-        let NodeRemove = elem.parentNode;
-        if (NodeRemove) {
-            NodeRemove.parentNode.removeChild(NodeRemove);
+    let orderToRemove = Array.from(document.querySelectorAll("#fin-order"));
+    orderToRemove.map(order =>{
+        order.onclick = function (e) {
+            let elem = document.getElementById("fin-order");
+            itemId = elem.getAttribute("productId");
+            let NodeRemove = elem.parentNode;
+            if (NodeRemove) {
+                NodeRemove.parentNode.removeChild(NodeRemove);
+            }
+            e.preventDefault();
+            client.items.destroy(itemId)
+                .then((item) => {
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
-        e.preventDefault();
-        client.items.destroy(itemId)
-            .then((item) => {
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
+    }) 
 }
 
 function deleteProduct() {
@@ -196,6 +199,7 @@ function deleteProduct() {
         let form = document.getElementById("removeProduct");
 
         itemName = form[0].value;
+        console.log(itemName);
         const token = 'd2e7727e16065b64a486255d82e999';
         fetch(
             'https://graphql.datocms.com/',
@@ -209,7 +213,7 @@ function deleteProduct() {
                 body: JSON.stringify({
                     query: `
                     {                 
-                        allProducts(filter: {name: {eq: ${itemName}}}) {
+                        allProducts(filter: {name: {eq: "${itemName.trim()}"}}) {
                             id
                         }
                                             

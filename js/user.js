@@ -150,7 +150,7 @@ function renderOrdersCard() {
 
     let htmlInsert = `
         Nenhum pedido ativo, mas que tal conferir nossas delícias?
-        <button class="text-button">
+        <button onclick="window.location.href='./product.html'" class="text-button">
             Confira!
         </button>
     `

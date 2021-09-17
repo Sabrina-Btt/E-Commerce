@@ -294,6 +294,21 @@ async function generateOrder() {
                     let qtdInStock = currentQtdInStock.map(elem => elem - Number(localStorage.getItem(vectorIds[currentQtdInStock.indexOf(elem)])));
 
                     if (!qtdInStock.some(elem => elem < 0)) {
+                        if(qtdInStock.some(elem => elem == 0)){
+                            let index = qtdInStock.indexOf(qtdInStock.find(elem => elem === 0));
+                            
+                            client.items.destroy(productsIds[index])
+                            .then((item) => {
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+
+                            qtdInStock.splice(index, 1);
+                            productsName.splice(index, 1);
+                            productsIds.splice(index, 1);
+                            
+                        }
                         alert("Checando estoque!");
                         attStockInDb(productsIds, qtdInStock);
                     } else {
@@ -372,9 +387,6 @@ async function generateOrder() {
             }
         }
 
-        //createOrder();
-
-        //remover os produtos do carrinho?
     }
 }
 
