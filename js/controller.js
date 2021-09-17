@@ -233,6 +233,7 @@ function getUserId() {
     return localStorage.getItem("userId");
 }
 
+console.log(localStorage)
 
 function getLoginPage() {
     document.getElementById("login-icon").onclick = function (e) {
