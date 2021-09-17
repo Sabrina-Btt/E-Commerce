@@ -1,6 +1,7 @@
 //---------------------------------------------- Cart ---------------------------------------------------------------------------------//
 let carrinho = [];
 setTimeout(() => { setQuantityCart() }, 500);
+setTimeout(() => { getLoginPage() }, 500);
 
 
 //Funções Auxiliares // Pega todos os produtos do banco de dados 
@@ -142,8 +143,6 @@ function renderProducts(products, size) {
     decrementQuantityDisplay();
 
     getUserId();
-
-    getLoginPage();
 }
 
 //Redefine a quantidade de produtos no carrinho
@@ -233,10 +232,9 @@ function getUserId() {
     return localStorage.getItem("userId");
 }
 
-console.log(localStorage)
-
 function getLoginPage() {
     document.getElementById("login-icon").onclick = function (e) {
+        e.preventDefault();
         if (getUserId() !== null)
             window.location.assign("welcome.html")
         else

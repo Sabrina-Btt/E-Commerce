@@ -6,7 +6,6 @@ let totalValue = 5;
 setTimeout(() => { getUserInfo(getUserId()); }, 250);
 setTimeout(() => { generateOrder(); }, 3000);
 
-
 //Função que checa tamanho de produtos no carrinho e renderiza a main dependendo da quantidade
 function getCartPage() {
     if (getAllProductsIds().length === 0) {
